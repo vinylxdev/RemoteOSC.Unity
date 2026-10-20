@@ -1,0 +1,9 @@
+{
+  "name": "dev.vinyl.remoteosc",
+  "version": "1.1.5",
+  "displayName": "RemoteOSC Avatar Exporter",
+  "description": "Export final avatar parameters and expression menus for RemoteOSC at build time.",
+  "unity": "2022.3",
+  "author": { "name": "Vinyl", "url": "https://www.vinyl.dev" },
+  "vpmDependencies": { "com.vrchat.avatars": ">=3.7.0" }
+}

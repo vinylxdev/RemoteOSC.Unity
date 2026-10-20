@@ -1,0 +1,898 @@
+{
+  "code": "ja",
+  "name": "日本語",
+  "entries": [
+    {
+      "key": "Accept",
+      "value": "承認"
+    },
+    {
+      "key": "Add this component to an avatar with a VRCAvatarDescriptor.",
+      "value": "VRCAvatarDescriptor があるアバターにこのコンポーネントを追加してください。"
+    },
+    {
+      "key": "Adjust radial",
+      "value": "ダイヤルを調整"
+    },
+    {
+      "key": "Advanced exclusions",
+      "value": "詳細な除外設定"
+    },
+    {
+      "key": "All",
+      "value": "すべて"
+    },
+    {
+      "key": "All shared parameters",
+      "value": "共有中のすべてのパラメーター"
+    },
+    {
+      "key": "Allow control",
+      "value": "操作を許可"
+    },
+    {
+      "key": "Allow shown",
+      "value": "表示中を許可"
+    },
+    {
+      "key": "Apply value",
+      "value": "値を適用"
+    },
+    {
+      "key": "Avatar",
+      "value": "アバター"
+    },
+    {
+      "key": "Avatar config could not be loaded: {0}",
+      "value": "アバター設定を読み込めませんでした: {0}"
+    },
+    {
+      "key": "Avatar config folder",
+      "value": "アバター設定フォルダー"
+    },
+    {
+      "key": "Avatar configurations",
+      "value": "アバター設定"
+    },
+    {
+      "key": "Avatar controls",
+      "value": "アバターの操作"
+    },
+    {
+      "key": "Avatar menu",
+      "value": "アバターメニュー"
+    },
+    {
+      "key": "Avatar menu · {0}/{1}",
+      "value": "アバターメニュー · {0}/{1}"
+    },
+    {
+      "key": "Avatar parameter names must be nonempty and unique.",
+      "value": "アバターのパラメーター名は空にできず、重複もできません。"
+    },
+    {
+      "key": "Back",
+      "value": "戻る"
+    },
+    {
+      "key": "Back one page · Hold for first page · Escape",
+      "value": "前のページに戻る · 長押しで最初のページへ · Esc キー"
+    },
+    {
+      "key": "Back · Escape",
+      "value": "戻る · Esc キー"
+    },
+    {
+      "key": "Block shown",
+      "value": "表示中をブロック"
+    },
+    {
+      "key": "Blocked",
+      "value": "ブロック"
+    },
+    {
+      "key": "Blocked by config",
+      "value": "設定によりブロック"
+    },
+    {
+      "key": "Blocked by menu rule: {0}",
+      "value": "メニューの除外設定によりブロック: {0}"
+    },
+    {
+      "key": "Blocked by parameter: {0}",
+      "value": "パラメーターの除外設定によりブロック: {0}"
+    },
+    {
+      "key": "Boolean parameters require true or false.",
+      "value": "真偽値のパラメーターには true または false を指定してください。"
+    },
+    {
+      "key": "Browse {0}",
+      "value": "{0}を参照"
+    },
+    {
+      "key": "Browse…",
+      "value": "参照…"
+    },
+    {
+      "key": "Button",
+      "value": "ボタン"
+    },
+    {
+      "key": "Cancel",
+      "value": "キャンセル"
+    },
+    {
+      "key": "Cancel request",
+      "value": "申請を取り消す"
+    },
+    {
+      "key": "Cannot read client state.",
+      "value": "クライアントの状態を読み取れません。"
+    },
+    {
+      "key": "Cannot start the OSCQuery receiver: {0}. Restart RemoteOSC to retry.",
+      "value": "OSCQuery の受信を開始できません: {0}。RemoteOSC を再起動して再試行してください。"
+    },
+    {
+      "key": "Choose a local folder.",
+      "value": "このコンピューター上のフォルダーを選択してください。"
+    },
+    {
+      "key": "Choose which avatar controls friends can use.",
+      "value": "フレンドに許可するアバターの操作を選択します。"
+    },
+    {
+      "key": "Choose {0}",
+      "value": "{0}を選択"
+    },
+    {
+      "key": "Connect",
+      "value": "接続"
+    },
+    {
+      "key": "Connected",
+      "value": "接続中"
+    },
+    {
+      "key": "Connecting to relay…",
+      "value": "中継サーバーに接続中…"
+    },
+    {
+      "key": "Connection muted. Unmute to continue.",
+      "value": "この接続はミュート中です。操作を続けるにはミュートを解除してください。"
+    },
+    {
+      "key": "Connections",
+      "value": "接続"
+    },
+    {
+      "key": "Control",
+      "value": "操作"
+    },
+    {
+      "key": "Control rejected: {0}",
+      "value": "操作が拒否されました: {0}"
+    },
+    {
+      "key": "Coordinator connection closed.",
+      "value": "中継サーバーとの接続が閉じられました。"
+    },
+    {
+      "key": "Coordinator error.",
+      "value": "中継サーバーでエラーが発生しました。"
+    },
+    {
+      "key": "Coordinator is not connected.",
+      "value": "中継サーバーに接続されていません。"
+    },
+    {
+      "key": "Coordinator is offline.",
+      "value": "中継サーバーはオフラインです。"
+    },
+    {
+      "key": "Coordinator message exceeds the size limit.",
+      "value": "中継サーバーのメッセージがサイズの上限を超えています。"
+    },
+    {
+      "key": "Coordinator messages must be JSON text.",
+      "value": "中継サーバーのメッセージは JSON テキストである必要があります。"
+    },
+    {
+      "key": "Coordinator send timed out.",
+      "value": "コーディネーターへの送信がタイムアウトしました。"
+    },
+    {
+      "key": "Coordinator: {0}",
+      "value": "中継サーバー: {0}"
+    },
+    {
+      "key": "Copy code",
+      "value": "コードをコピー"
+    },
+    {
+      "key": "Could not load this peer's avatar: {0}",
+      "value": "相手のアバターを読み込めませんでした: {0}"
+    },
+    {
+      "key": "Decline",
+      "value": "拒否"
+    },
+    {
+      "key": "Delete",
+      "value": "削除"
+    },
+    {
+      "key": "Delete connection",
+      "value": "接続を削除"
+    },
+    {
+      "key": "Delete connection?",
+      "value": "接続を削除しますか？"
+    },
+    {
+      "key": "Delete your connection with {0} ({1})? This will remove them from your saved connections.",
+      "value": "{0}（{1}）との接続を削除しますか？保存済みの接続先から削除されます。"
+    },
+    {
+      "key": "Detect",
+      "value": "検出"
+    },
+    {
+      "key": "Detect {0}",
+      "value": "{0}を検出"
+    },
+    {
+      "key": "Disconnect",
+      "value": "切断"
+    },
+    {
+      "key": "Disconnected",
+      "value": "未接続"
+    },
+    {
+      "key": "Display name",
+      "value": "表示名"
+    },
+    {
+      "key": "Down",
+      "value": "下"
+    },
+    {
+      "key": "Empty exports to Assets. Browse starts in the client's avatar folder when it can be found.",
+      "value": "空欄の場合は Assets に出力します。「参照」は、クライアントのアバターフォルダーが見つかればそこから開きます。"
+    },
+    {
+      "key": "Enabled",
+      "value": "有効"
+    },
+    {
+      "key": "Enter a display name and valid config/cache directories.",
+      "value": "表示名と、有効な設定フォルダー・キャッシュフォルダーを入力してください。"
+    },
+    {
+      "key": "Enter a friend's peer code",
+      "value": "フレンドの接続コードを入力"
+    },
+    {
+      "key": "Enter a valid folder path.",
+      "value": "有効なフォルダーパスを入力してください。"
+    },
+    {
+      "key": "Enter a valid number.",
+      "value": "有効な数値を入力してください。"
+    },
+    {
+      "key": "Enter a valid peer code.",
+      "value": "有効な接続コードを入力してください。"
+    },
+    {
+      "key": "Exact parameter names that must never be shared with peers.",
+      "value": "相手との共有を禁止するパラメーター名を、完全一致で指定します。"
+    },
+    {
+      "key": "Export location",
+      "value": "出力先"
+    },
+    {
+      "key": "Expressions",
+      "value": "エクスプレッション"
+    },
+    {
+      "key": "Expressions / {0}",
+      "value": "エクスプレッション / {0}"
+    },
+    {
+      "key": "Float parameter range exceeds OSC limits.",
+      "value": "浮動小数点数パラメーターの範囲が OSC の上限を超えています。"
+    },
+    {
+      "key": "Folder browsing is unavailable on this platform.",
+      "value": "この環境ではフォルダーを参照できません。"
+    },
+    {
+      "key": "Folder used by the client for avatar configs. Empty writes to Assets/.",
+      "value": "クライアントがアバター設定を読み込むフォルダーです。空欄の場合は Assets/ に出力します。"
+    },
+    {
+      "key": "FourAxisPuppet",
+      "value": "4 軸パペット"
+    },
+    {
+      "key": "Hide peer code",
+      "value": "接続コードを隠す"
+    },
+    {
+      "key": "Hold to activate",
+      "value": "押している間だけ有効"
+    },
+    {
+      "key": "Install the latest RemoteOSC release before connecting.",
+      "value": "接続する前に RemoteOSC の最新版をインストールしてください。"
+    },
+    {
+      "key": "Integer parameter range exceeds OSC limits.",
+      "value": "整数パラメーターの範囲が OSC の上限を超えています。"
+    },
+    {
+      "key": "Integer parameters require whole numbers.",
+      "value": "整数パラメーターには整数を指定してください。"
+    },
+    {
+      "key": "Invalid VRChat avatar cache.",
+      "value": "VRChat のアバターキャッシュが無効です。"
+    },
+    {
+      "key": "Invalid avatar ID.",
+      "value": "アバター ID が無効です。"
+    },
+    {
+      "key": "Invalid avatar parameter definition.",
+      "value": "アバターパラメーターの定義が無効です。"
+    },
+    {
+      "key": "Invalid or oversized avatar config.",
+      "value": "アバター設定が無効か、サイズの上限を超えています。"
+    },
+    {
+      "key": "Invalid peer avatar metadata.",
+      "value": "相手のアバター情報が無効です。"
+    },
+    {
+      "key": "Language",
+      "value": "言語"
+    },
+    {
+      "key": "Language changes apply after restarting RemoteOSC.",
+      "value": "言語の変更は RemoteOSC の再起動後に反映されます。"
+    },
+    {
+      "key": "Left",
+      "value": "左"
+    },
+    {
+      "key": "Load avatar ID",
+      "value": "アバター ID を読み込む"
+    },
+    {
+      "key": "Loaded {0} parameters for {1}.",
+      "value": "{1} のパラメーターを {0} 件読み込みました。"
+    },
+    {
+      "key": "Log folder",
+      "value": "ログフォルダー"
+    },
+    {
+      "key": "Log folder path",
+      "value": "ログフォルダーのパス"
+    },
+    {
+      "key": "Menu control '{0}' refers to an unknown parameter.",
+      "value": "メニュー操作「{0}」が不明なパラメーターを参照しています。"
+    },
+    {
+      "key": "Menu controls ({0})",
+      "value": "メニュー操作（{0}）"
+    },
+    {
+      "key": "Menu paths",
+      "value": "メニューパス"
+    },
+    {
+      "key": "Menu/control paths to exclude, such as Clothing/Hat. These survive parameter renaming.",
+      "value": "除外するメニューや操作のパスを指定します（例: Clothing/Hat）。パラメーター名が変更されても除外設定は維持されます。"
+    },
+    {
+      "key": "Missing OSC endpoint.",
+      "value": "OSC の接続先がありません。"
+    },
+    {
+      "key": "Move axes",
+      "value": "軸を操作"
+    },
+    {
+      "key": "Mute",
+      "value": "ミュート"
+    },
+    {
+      "key": "Muted",
+      "value": "ミュート中"
+    },
+    {
+      "key": "Muted by peer",
+      "value": "相手によるミュート"
+    },
+    {
+      "key": "My parameters",
+      "value": "自分のパラメーター"
+    },
+    {
+      "key": "Next",
+      "value": "次へ"
+    },
+    {
+      "key": "No VRChat OSC cache folder found. Use Browse… to choose a folder.",
+      "value": "VRChat OSC キャッシュフォルダーが見つかりません。「参照…」からフォルダーを選択してください。"
+    },
+    {
+      "key": "No avatar config folder found. Use Browse… to choose a folder.",
+      "value": "アバター設定フォルダーが見つかりません。「参照…」からフォルダーを選択してください。"
+    },
+    {
+      "key": "No avatar detected",
+      "value": "アバターが検出されていません"
+    },
+    {
+      "key": "No avatar is loaded.",
+      "value": "アバターが読み込まれていません。"
+    },
+    {
+      "key": "No avatar loaded",
+      "value": "アバター未読み込み"
+    },
+    {
+      "key": "No avatar shared",
+      "value": "アバター未共有"
+    },
+    {
+      "key": "No controllable parameters shared. Enable OSC, load your avatar and check My parameters.",
+      "value": "操作可能なパラメーターが共有されていません。OSC を有効にしてアバターを読み込み、「自分のパラメーター」を確認してください。"
+    },
+    {
+      "key": "No controllable parameters shared. Your friend may need to enable OSC or update permissions.",
+      "value": "操作可能なパラメーターが共有されていません。フレンドに OSC の有効化や操作権限の見直しをお願いしてください。"
+    },
+    {
+      "key": "No generated YAML or VRChat OSC cache found for this avatar.",
+      "value": "このアバターの出力済み YAML も VRChat OSC キャッシュも見つかりません。"
+    },
+    {
+      "key": "No matches. Change the search or permission filter.",
+      "value": "一致する項目がありません。検索条件や権限フィルターを変更してください。"
+    },
+    {
+      "key": "No peer code is available to copy.",
+      "value": "コピーできる接続コードがありません。"
+    },
+    {
+      "key": "No shared parameters match your search.",
+      "value": "検索に一致する共有パラメーターがありません。"
+    },
+    {
+      "key": "No source menu controls found. Choose Parameters, or add generated menu paths under Advanced exclusions.",
+      "value": "元のメニュー操作が見つかりません。「パラメーター」を選択するか、「詳細な除外設定」にビルド時に生成されるメニューパスを追加してください。"
+    },
+    {
+      "key": "No source parameters found. Assign expression parameters or an animator controller to preview them here.",
+      "value": "元のパラメーターが見つかりません。Expression Parameters または Animator Controller を設定すると、ここにプレビューが表示されます。"
+    },
+    {
+      "key": "No such parameter on the current avatar.",
+      "value": "現在のアバターにそのパラメーターはありません。"
+    },
+    {
+      "key": "OSC connection",
+      "value": "OSC 接続"
+    },
+    {
+      "key": "Open submenu",
+      "value": "サブメニューを開く"
+    },
+    {
+      "key": "Output only",
+      "value": "出力専用"
+    },
+    {
+      "key": "Parameter '{0}' has an invalid OSC address.",
+      "value": "パラメーター「{0}」の OSC アドレスが無効です。"
+    },
+    {
+      "key": "Parameter '{0}' has an invalid range.",
+      "value": "パラメーター「{0}」の値の範囲が無効です。"
+    },
+    {
+      "key": "Parameter names",
+      "value": "パラメーター名"
+    },
+    {
+      "key": "Parameter value is outside its allowed range.",
+      "value": "パラメーターの値が許容範囲外です。"
+    },
+    {
+      "key": "Parameters ({0})",
+      "value": "パラメーター（{0}）"
+    },
+    {
+      "key": "Parameters blocked by the Unity config stay blocked. App permissions can only restrict access further.",
+      "value": "Unity の設定でブロックされたパラメーターは、このアプリでもブロックされます。アプリの権限設定で許可範囲を広げることはできません。"
+    },
+    {
+      "key": "Peer is not connected.",
+      "value": "相手と接続されていません。"
+    },
+    {
+      "key": "Pending",
+      "value": "承認待ち"
+    },
+    {
+      "key": "Persistent peer identities require an encrypted coordinator connection.",
+      "value": "接続相手の識別情報を保持するには、中継サーバーとの暗号化された接続が必要です。"
+    },
+    {
+      "key": "Profile",
+      "value": "プロフィール"
+    },
+    {
+      "key": "Protected",
+      "value": "保護対象"
+    },
+    {
+      "key": "RadialPuppet",
+      "value": "ラジアルパペット"
+    },
+    {
+      "key": "Ready to export on build",
+      "value": "ビルド時に出力できます"
+    },
+    {
+      "key": "Reconnect",
+      "value": "再接続"
+    },
+    {
+      "key": "Relative paths use the app's data folder.",
+      "value": "相対パスは、アプリのデータフォルダーを基準に解釈されます。"
+    },
+    {
+      "key": "Relay connected",
+      "value": "中継サーバーに接続中"
+    },
+    {
+      "key": "Relay offline · retrying",
+      "value": "中継サーバーに未接続 · 再試行中"
+    },
+    {
+      "key": "Reload config",
+      "value": "設定を再読み込み"
+    },
+    {
+      "key": "Remote permissions",
+      "value": "リモート操作の権限"
+    },
+    {
+      "key": "RemoteOSC config folder",
+      "value": "RemoteOSC 設定フォルダー"
+    },
+    {
+      "key": "RemoteOSC could not export the avatar config: {0}",
+      "value": "RemoteOSC でアバター設定を出力できませんでした: {0}"
+    },
+    {
+      "key": "RemoteOSC exported final avatar mapping to {0}",
+      "value": "RemoteOSC が最終的なアバター設定を {0} に出力しました"
+    },
+    {
+      "key": "RemoteOSC: excluded names were renamed without a menu binding. All parameters are blocked; review the final mapping.",
+      "value": "RemoteOSC: 除外対象のパラメーター名が、対応するメニュー操作がないまま変更されました。安全のためすべてのパラメーターをブロックしています。最終的な対応関係を確認してください。"
+    },
+    {
+      "key": "RemoteOSC: no avatar ID yet. Upload the avatar once, then build again to export its config.",
+      "value": "RemoteOSC: アバター ID がまだありません。一度アバターをアップロードしてから再度ビルドすると、設定を出力できます。"
+    },
+    {
+      "key": "RemoteOSC: put exactly one exporter on the avatar root.",
+      "value": "RemoteOSC: アバターのルートにエクスポーターを 1 つだけ配置してください。"
+    },
+    {
+      "key": "Right",
+      "value": "右"
+    },
+    {
+      "key": "Root menu",
+      "value": "ルートメニュー"
+    },
+    {
+      "key": "Save",
+      "value": "保存"
+    },
+    {
+      "key": "Save display name",
+      "value": "表示名を保存"
+    },
+    {
+      "key": "Save settings",
+      "value": "設定を保存"
+    },
+    {
+      "key": "Search parameters",
+      "value": "パラメーターを検索"
+    },
+    {
+      "key": "Search shared parameters",
+      "value": "共有パラメーターを検索"
+    },
+    {
+      "key": "Select a connection to show its avatar menus and parameters.",
+      "value": "接続先を選択すると、アバターメニューとパラメーターが表示されます。"
+    },
+    {
+      "key": "Send port changes apply after restarting RemoteOSC.",
+      "value": "送信ポートの変更は RemoteOSC の再起動後に反映されます。"
+    },
+    {
+      "key": "Send to VRChat",
+      "value": "VRChat への送信ポート"
+    },
+    {
+      "key": "Set value",
+      "value": "値を設定"
+    },
+    {
+      "key": "Settings",
+      "value": "設定"
+    },
+    {
+      "key": "Settings file",
+      "value": "設定ファイル"
+    },
+    {
+      "key": "Settings file path",
+      "value": "設定ファイルのパス"
+    },
+    {
+      "key": "Settings saved. Restart the app if you changed the language or OSC ports.",
+      "value": "設定を保存しました。言語または OSC ポートを変更した場合は、アプリを再起動してください。"
+    },
+    {
+      "key": "Shared",
+      "value": "共有"
+    },
+    {
+      "key": "Show folder",
+      "value": "フォルダーを開く"
+    },
+    {
+      "key": "Show peer code",
+      "value": "接続コードを表示"
+    },
+    {
+      "key": "Source preview. Final parameter names and menus are exported after the avatar build tools run.",
+      "value": "ビルド前のプレビューです。最終的なパラメーター名とメニューは、アバターのビルドツールの処理後に出力されます。"
+    },
+    {
+      "key": "SubMenu",
+      "value": "サブメニュー"
+    },
+    {
+      "key": "System default",
+      "value": "システムの既定"
+    },
+    {
+      "key": "System parameters and animator triggers are always blocked.",
+      "value": "システムパラメーターと Animator のトリガーは常にブロックされます。"
+    },
+    {
+      "key": "The OSC send port must be a number between 1 and 65535.",
+      "value": "OSC の送信ポートは 1～65535 の数値で指定してください。"
+    },
+    {
+      "key": "The OSC send port must be a whole number.",
+      "value": "OSC の送信ポートは整数で指定してください。"
+    },
+    {
+      "key": "The VRChat cache avatar ID does not match.",
+      "value": "VRChat キャッシュのアバター ID が一致しません。"
+    },
+    {
+      "key": "The avatar ID in the config does not match its filename.",
+      "value": "設定内のアバター ID がファイル名と一致しません。"
+    },
+    {
+      "key": "The avatar has an invalid blueprint ID.",
+      "value": "アバターの Blueprint ID が無効です。"
+    },
+    {
+      "key": "The client identity file is invalid. Restore identity.token from a backup or delete it to create a new peer identity.",
+      "value": "クライアントの識別情報ファイルが無効です。バックアップから identity.token を復元するか、このファイルを削除して新しい識別情報を作成してください。"
+    },
+    {
+      "key": "The client runtime has already started.",
+      "value": "クライアントはすでに起動しています。"
+    },
+    {
+      "key": "The config is written here during the avatar build.",
+      "value": "アバターのビルド時に、この場所に設定を書き込みます。"
+    },
+    {
+      "key": "The coordinator does not support persistent peer identities. Update the coordinator before connecting this client.",
+      "value": "中継サーバーが接続相手の識別情報の保持に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
+    },
+    {
+      "key": "The coordinator does not support release version checking. Update the coordinator before connecting this client.",
+      "value": "中継サーバーがバージョンの確認に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
+    },
+    {
+      "key": "The local OSC connection is not running.",
+      "value": "ローカルの OSC 接続が起動していません。"
+    },
+    {
+      "key": "The peer declined your connection request.",
+      "value": "相手が接続リクエストを拒否しました。"
+    },
+    {
+      "key": "The peer's avatar or permissions changed. Refresh controls.",
+      "value": "相手のアバターまたは操作権限が変更されました。操作画面を更新してください。"
+    },
+    {
+      "key": "This avatar has multiple RemoteOSC exporters. Keep one component so its build can export.",
+      "value": "このアバターには RemoteOSC エクスポーターが複数あります。ビルド時に出力できるよう、コンポーネントを 1 つだけ残してください。"
+    },
+    {
+      "key": "This client is version {0}. The coordinator requires version {1}. Install the latest RemoteOSC release before connecting.",
+      "value": "このクライアントのバージョンは {0} ですが、中継サーバーが要求するバージョンは {1} です。接続する前に RemoteOSC の最新版をインストールしてください。"
+    },
+    {
+      "key": "This friend has muted the connection.",
+      "value": "フレンドがこの接続をミュートしています。"
+    },
+    {
+      "key": "This parameter is blocked by the Unity config.",
+      "value": "このパラメーターは Unity の設定でブロックされています。"
+    },
+    {
+      "key": "This parameter is not controllable.",
+      "value": "このパラメーターは操作できません。"
+    },
+    {
+      "key": "This peer is not available for control.",
+      "value": "現在、この相手のアバターは操作できません。"
+    },
+    {
+      "key": "Toggle",
+      "value": "切り替え"
+    },
+    {
+      "key": "Toggle on / off",
+      "value": "オン／オフを切り替え"
+    },
+    {
+      "key": "TwoAxisPuppet",
+      "value": "2 軸パペット"
+    },
+    {
+      "key": "Unknown peer action.",
+      "value": "不明な接続操作です。"
+    },
+    {
+      "key": "Unmute",
+      "value": "ミュート解除"
+    },
+    {
+      "key": "Unsupported OSC parameter type '{0}'.",
+      "value": "OSC パラメーターの型「{0}」には対応していません。"
+    },
+    {
+      "key": "Unsupported avatar config version or invalid avatar ID.",
+      "value": "アバター設定のバージョンが未対応か、アバター ID が無効です。"
+    },
+    {
+      "key": "Unsupported coordinator URL.",
+      "value": "対応していない中継サーバーの URL です。"
+    },
+    {
+      "key": "Up",
+      "value": "上"
+    },
+    {
+      "key": "Upload the avatar once, then build again to export its config.",
+      "value": "一度アバターをアップロードしてから再度ビルドすると、設定を出力できます。"
+    },
+    {
+      "key": "Use exact names or stable menu paths for controls generated during the build. A menu path also excludes its child controls.",
+      "value": "ビルド時に生成される操作は、完全一致の名前または変更されないメニューパスで除外してください。メニューパスを指定すると、その配下の操作も除外されます。"
+    },
+    {
+      "key": "Use −1 to 1",
+      "value": "−1～1 の範囲を使用"
+    },
+    {
+      "key": "Uses a system parameter or animator trigger.",
+      "value": "システムパラメーターまたは Animator のトリガーを使用しています。"
+    },
+    {
+      "key": "VRChat OSC cache folder",
+      "value": "VRChat OSC キャッシュフォルダー"
+    },
+    {
+      "key": "VRChat discovers RemoteOSC through OSCQuery. The receive port is assigned automatically.",
+      "value": "VRChat は OSCQuery 経由で RemoteOSC を検出します。受信ポートは自動で割り当てられます。"
+    },
+    {
+      "key": "Waiting for VRChat. Enable OSC in VRChat and wear an avatar.",
+      "value": "VRChat を待機中です。VRChat で OSC を有効にしてアバターを着用してください。"
+    },
+    {
+      "key": "Waiting for an avatar ID",
+      "value": "アバター ID を待機中"
+    },
+    {
+      "key": "You (local)",
+      "value": "あなた（ローカル）"
+    },
+    {
+      "key": "Your avatar changed. Refresh the permissions list.",
+      "value": "自分のアバターが変更されました。操作権限の一覧を更新してください。"
+    },
+    {
+      "key": "Your avatar or permissions changed. Refresh controls.",
+      "value": "自分のアバターまたは操作権限が変更されました。操作画面を更新してください。"
+    },
+    {
+      "key": "Your code",
+      "value": "自分のコード"
+    },
+    {
+      "key": "Your connections",
+      "value": "接続先"
+    },
+    {
+      "key": "Your shared controls",
+      "value": "自分が共有している操作"
+    },
+    {
+      "key": "{0}  ({1})",
+      "value": "{0}（{1}）"
+    },
+    {
+      "key": "{0} detected. Click Save settings to apply it.",
+      "value": "{0}が見つかりました。「設定を保存」をクリックして適用してください。"
+    },
+    {
+      "key": "{0} page",
+      "value": "{0}"
+    },
+    {
+      "key": "{0} puppet",
+      "value": "{0}のパペット"
+    },
+    {
+      "key": "{0} shared  ·  {1} blocked  ·  {2} protected",
+      "value": "共有 {0} 件  ·  ブロック {1} 件  ·  保護対象 {2} 件"
+    },
+    {
+      "key": "{0} shown",
+      "value": "{0} 件を表示中"
+    },
+    {
+      "key": "{0} wants to connect with you.",
+      "value": "{0} から接続リクエストが届いています。"
+    },
+    {
+      "key": "{0}'s controls",
+      "value": "{0}の操作"
+    },
+    {
+      "key": "‹ Back to expressions",
+      "value": "‹ エクスプレッションに戻る"
+    }
+  ]
+}

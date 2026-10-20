@@ -1,0 +1,898 @@
+{
+  "code": "en",
+  "name": "English",
+  "entries": [
+    {
+      "key": "Accept",
+      "value": "Accept"
+    },
+    {
+      "key": "Add this component to an avatar with a VRCAvatarDescriptor.",
+      "value": "Add this component to an avatar with a VRCAvatarDescriptor."
+    },
+    {
+      "key": "Adjust radial",
+      "value": "Adjust radial"
+    },
+    {
+      "key": "Advanced exclusions",
+      "value": "Advanced exclusions"
+    },
+    {
+      "key": "All",
+      "value": "All"
+    },
+    {
+      "key": "All shared parameters",
+      "value": "All shared parameters"
+    },
+    {
+      "key": "Allow control",
+      "value": "Allow control"
+    },
+    {
+      "key": "Allow shown",
+      "value": "Allow shown"
+    },
+    {
+      "key": "Apply value",
+      "value": "Apply value"
+    },
+    {
+      "key": "Avatar",
+      "value": "Avatar"
+    },
+    {
+      "key": "Avatar config could not be loaded: {0}",
+      "value": "Avatar config could not be loaded: {0}"
+    },
+    {
+      "key": "Avatar config folder",
+      "value": "Avatar config folder"
+    },
+    {
+      "key": "Avatar configurations",
+      "value": "Avatar configurations"
+    },
+    {
+      "key": "Avatar controls",
+      "value": "Avatar controls"
+    },
+    {
+      "key": "Avatar menu",
+      "value": "Avatar menu"
+    },
+    {
+      "key": "Avatar menu · {0}/{1}",
+      "value": "Avatar menu · {0}/{1}"
+    },
+    {
+      "key": "Avatar parameter names must be nonempty and unique.",
+      "value": "Avatar parameter names must be nonempty and unique."
+    },
+    {
+      "key": "Back",
+      "value": "Back"
+    },
+    {
+      "key": "Back one page · Hold for first page · Escape",
+      "value": "Back one page · Hold for first page · Escape"
+    },
+    {
+      "key": "Back · Escape",
+      "value": "Back · Escape"
+    },
+    {
+      "key": "Block shown",
+      "value": "Block shown"
+    },
+    {
+      "key": "Blocked",
+      "value": "Blocked"
+    },
+    {
+      "key": "Blocked by config",
+      "value": "Blocked by config"
+    },
+    {
+      "key": "Blocked by menu rule: {0}",
+      "value": "Blocked by menu rule: {0}"
+    },
+    {
+      "key": "Blocked by parameter: {0}",
+      "value": "Blocked by parameter: {0}"
+    },
+    {
+      "key": "Boolean parameters require true or false.",
+      "value": "Boolean parameters require true or false."
+    },
+    {
+      "key": "Browse {0}",
+      "value": "Browse {0}"
+    },
+    {
+      "key": "Browse…",
+      "value": "Browse…"
+    },
+    {
+      "key": "Button",
+      "value": "Button"
+    },
+    {
+      "key": "Cancel",
+      "value": "Cancel"
+    },
+    {
+      "key": "Cancel request",
+      "value": "Cancel request"
+    },
+    {
+      "key": "Cannot read client state.",
+      "value": "Cannot read client state."
+    },
+    {
+      "key": "Cannot start the OSCQuery receiver: {0}. Restart RemoteOSC to retry.",
+      "value": "Cannot start the OSCQuery receiver: {0}. Restart RemoteOSC to retry."
+    },
+    {
+      "key": "Choose a local folder.",
+      "value": "Choose a local folder."
+    },
+    {
+      "key": "Choose which avatar controls friends can use.",
+      "value": "Choose which avatar controls friends can use."
+    },
+    {
+      "key": "Choose {0}",
+      "value": "Choose {0}"
+    },
+    {
+      "key": "Connect",
+      "value": "Connect"
+    },
+    {
+      "key": "Connected",
+      "value": "Connected"
+    },
+    {
+      "key": "Connecting to relay…",
+      "value": "Connecting to relay…"
+    },
+    {
+      "key": "Connection muted. Unmute to continue.",
+      "value": "Connection muted. Unmute to continue."
+    },
+    {
+      "key": "Connections",
+      "value": "Connections"
+    },
+    {
+      "key": "Control",
+      "value": "Control"
+    },
+    {
+      "key": "Control rejected: {0}",
+      "value": "Control rejected: {0}"
+    },
+    {
+      "key": "Coordinator connection closed.",
+      "value": "Coordinator connection closed."
+    },
+    {
+      "key": "Coordinator error.",
+      "value": "Coordinator error."
+    },
+    {
+      "key": "Coordinator is not connected.",
+      "value": "Coordinator is not connected."
+    },
+    {
+      "key": "Coordinator is offline.",
+      "value": "Coordinator is offline."
+    },
+    {
+      "key": "Coordinator message exceeds the size limit.",
+      "value": "Coordinator message exceeds the size limit."
+    },
+    {
+      "key": "Coordinator messages must be JSON text.",
+      "value": "Coordinator messages must be JSON text."
+    },
+    {
+      "key": "Coordinator send timed out.",
+      "value": "Coordinator send timed out."
+    },
+    {
+      "key": "Coordinator: {0}",
+      "value": "Coordinator: {0}"
+    },
+    {
+      "key": "Copy code",
+      "value": "Copy code"
+    },
+    {
+      "key": "Could not load this peer's avatar: {0}",
+      "value": "Could not load this peer's avatar: {0}"
+    },
+    {
+      "key": "Decline",
+      "value": "Decline"
+    },
+    {
+      "key": "Delete",
+      "value": "Delete"
+    },
+    {
+      "key": "Delete connection",
+      "value": "Delete connection"
+    },
+    {
+      "key": "Delete connection?",
+      "value": "Delete connection?"
+    },
+    {
+      "key": "Delete your connection with {0} ({1})? This will remove them from your saved connections.",
+      "value": "Delete your connection with {0} ({1})? This will remove them from your saved connections."
+    },
+    {
+      "key": "Detect",
+      "value": "Detect"
+    },
+    {
+      "key": "Detect {0}",
+      "value": "Detect {0}"
+    },
+    {
+      "key": "Disconnect",
+      "value": "Disconnect"
+    },
+    {
+      "key": "Disconnected",
+      "value": "Disconnected"
+    },
+    {
+      "key": "Display name",
+      "value": "Display name"
+    },
+    {
+      "key": "Down",
+      "value": "Down"
+    },
+    {
+      "key": "Empty exports to Assets. Browse starts in the client's avatar folder when it can be found.",
+      "value": "Empty exports to Assets. Browse starts in the client's avatar folder when it can be found."
+    },
+    {
+      "key": "Enabled",
+      "value": "Enabled"
+    },
+    {
+      "key": "Enter a display name and valid config/cache directories.",
+      "value": "Enter a display name and valid config/cache directories."
+    },
+    {
+      "key": "Enter a friend's peer code",
+      "value": "Enter a friend's peer code"
+    },
+    {
+      "key": "Enter a valid folder path.",
+      "value": "Enter a valid folder path."
+    },
+    {
+      "key": "Enter a valid number.",
+      "value": "Enter a valid number."
+    },
+    {
+      "key": "Enter a valid peer code.",
+      "value": "Enter a valid peer code."
+    },
+    {
+      "key": "Exact parameter names that must never be shared with peers.",
+      "value": "Exact parameter names that must never be shared with peers."
+    },
+    {
+      "key": "Export location",
+      "value": "Export location"
+    },
+    {
+      "key": "Expressions",
+      "value": "Expressions"
+    },
+    {
+      "key": "Expressions / {0}",
+      "value": "Expressions / {0}"
+    },
+    {
+      "key": "Float parameter range exceeds OSC limits.",
+      "value": "Float parameter range exceeds OSC limits."
+    },
+    {
+      "key": "Folder browsing is unavailable on this platform.",
+      "value": "Folder browsing is unavailable on this platform."
+    },
+    {
+      "key": "Folder used by the client for avatar configs. Empty writes to Assets/.",
+      "value": "Folder used by the client for avatar configs. Empty writes to Assets/."
+    },
+    {
+      "key": "FourAxisPuppet",
+      "value": "FourAxisPuppet"
+    },
+    {
+      "key": "Hide peer code",
+      "value": "Hide peer code"
+    },
+    {
+      "key": "Hold to activate",
+      "value": "Hold to activate"
+    },
+    {
+      "key": "Install the latest RemoteOSC release before connecting.",
+      "value": "Install the latest RemoteOSC release before connecting."
+    },
+    {
+      "key": "Integer parameter range exceeds OSC limits.",
+      "value": "Integer parameter range exceeds OSC limits."
+    },
+    {
+      "key": "Integer parameters require whole numbers.",
+      "value": "Integer parameters require whole numbers."
+    },
+    {
+      "key": "Invalid VRChat avatar cache.",
+      "value": "Invalid VRChat avatar cache."
+    },
+    {
+      "key": "Invalid avatar ID.",
+      "value": "Invalid avatar ID."
+    },
+    {
+      "key": "Invalid avatar parameter definition.",
+      "value": "Invalid avatar parameter definition."
+    },
+    {
+      "key": "Invalid or oversized avatar config.",
+      "value": "Invalid or oversized avatar config."
+    },
+    {
+      "key": "Invalid peer avatar metadata.",
+      "value": "Invalid peer avatar metadata."
+    },
+    {
+      "key": "Language",
+      "value": "Language"
+    },
+    {
+      "key": "Language changes apply after restarting RemoteOSC.",
+      "value": "Language changes apply after restarting RemoteOSC."
+    },
+    {
+      "key": "Left",
+      "value": "Left"
+    },
+    {
+      "key": "Load avatar ID",
+      "value": "Load avatar ID"
+    },
+    {
+      "key": "Loaded {0} parameters for {1}.",
+      "value": "Loaded {0} parameters for {1}."
+    },
+    {
+      "key": "Log folder",
+      "value": "Log folder"
+    },
+    {
+      "key": "Log folder path",
+      "value": "Log folder path"
+    },
+    {
+      "key": "Menu control '{0}' refers to an unknown parameter.",
+      "value": "Menu control '{0}' refers to an unknown parameter."
+    },
+    {
+      "key": "Menu controls ({0})",
+      "value": "Menu controls ({0})"
+    },
+    {
+      "key": "Menu paths",
+      "value": "Menu paths"
+    },
+    {
+      "key": "Menu/control paths to exclude, such as Clothing/Hat. These survive parameter renaming.",
+      "value": "Menu/control paths to exclude, such as Clothing/Hat. These survive parameter renaming."
+    },
+    {
+      "key": "Missing OSC endpoint.",
+      "value": "Missing OSC endpoint."
+    },
+    {
+      "key": "Move axes",
+      "value": "Move axes"
+    },
+    {
+      "key": "Mute",
+      "value": "Mute"
+    },
+    {
+      "key": "Muted",
+      "value": "Muted"
+    },
+    {
+      "key": "Muted by peer",
+      "value": "Muted by peer"
+    },
+    {
+      "key": "My parameters",
+      "value": "My parameters"
+    },
+    {
+      "key": "Next",
+      "value": "Next"
+    },
+    {
+      "key": "No VRChat OSC cache folder found. Use Browse… to choose a folder.",
+      "value": "No VRChat OSC cache folder found. Use Browse… to choose a folder."
+    },
+    {
+      "key": "No avatar config folder found. Use Browse… to choose a folder.",
+      "value": "No avatar config folder found. Use Browse… to choose a folder."
+    },
+    {
+      "key": "No avatar detected",
+      "value": "No avatar detected"
+    },
+    {
+      "key": "No avatar is loaded.",
+      "value": "No avatar is loaded."
+    },
+    {
+      "key": "No avatar loaded",
+      "value": "No avatar loaded"
+    },
+    {
+      "key": "No avatar shared",
+      "value": "No avatar shared"
+    },
+    {
+      "key": "No controllable parameters shared. Enable OSC, load your avatar and check My parameters.",
+      "value": "No controllable parameters shared. Enable OSC, load your avatar and check My parameters."
+    },
+    {
+      "key": "No controllable parameters shared. Your friend may need to enable OSC or update permissions.",
+      "value": "No controllable parameters shared. Your friend may need to enable OSC or update permissions."
+    },
+    {
+      "key": "No generated YAML or VRChat OSC cache found for this avatar.",
+      "value": "No generated YAML or VRChat OSC cache found for this avatar."
+    },
+    {
+      "key": "No matches. Change the search or permission filter.",
+      "value": "No matches. Change the search or permission filter."
+    },
+    {
+      "key": "No peer code is available to copy.",
+      "value": "No peer code is available to copy."
+    },
+    {
+      "key": "No shared parameters match your search.",
+      "value": "No shared parameters match your search."
+    },
+    {
+      "key": "No source menu controls found. Choose Parameters, or add generated menu paths under Advanced exclusions.",
+      "value": "No source menu controls found. Choose Parameters, or add generated menu paths under Advanced exclusions."
+    },
+    {
+      "key": "No source parameters found. Assign expression parameters or an animator controller to preview them here.",
+      "value": "No source parameters found. Assign expression parameters or an animator controller to preview them here."
+    },
+    {
+      "key": "No such parameter on the current avatar.",
+      "value": "No such parameter on the current avatar."
+    },
+    {
+      "key": "OSC connection",
+      "value": "OSC connection"
+    },
+    {
+      "key": "Open submenu",
+      "value": "Open submenu"
+    },
+    {
+      "key": "Output only",
+      "value": "Output only"
+    },
+    {
+      "key": "Parameter '{0}' has an invalid OSC address.",
+      "value": "Parameter '{0}' has an invalid OSC address."
+    },
+    {
+      "key": "Parameter '{0}' has an invalid range.",
+      "value": "Parameter '{0}' has an invalid range."
+    },
+    {
+      "key": "Parameter names",
+      "value": "Parameter names"
+    },
+    {
+      "key": "Parameter value is outside its allowed range.",
+      "value": "Parameter value is outside its allowed range."
+    },
+    {
+      "key": "Parameters ({0})",
+      "value": "Parameters ({0})"
+    },
+    {
+      "key": "Parameters blocked by the Unity config stay blocked. App permissions can only restrict access further.",
+      "value": "Parameters blocked by the Unity config stay blocked. App permissions can only restrict access further."
+    },
+    {
+      "key": "Peer is not connected.",
+      "value": "Peer is not connected."
+    },
+    {
+      "key": "Pending",
+      "value": "Pending"
+    },
+    {
+      "key": "Persistent peer identities require an encrypted coordinator connection.",
+      "value": "Persistent peer identities require an encrypted coordinator connection."
+    },
+    {
+      "key": "Profile",
+      "value": "Profile"
+    },
+    {
+      "key": "Protected",
+      "value": "Protected"
+    },
+    {
+      "key": "RadialPuppet",
+      "value": "RadialPuppet"
+    },
+    {
+      "key": "Ready to export on build",
+      "value": "Ready to export on build"
+    },
+    {
+      "key": "Reconnect",
+      "value": "Reconnect"
+    },
+    {
+      "key": "Relative paths use the app's data folder.",
+      "value": "Relative paths use the app's data folder."
+    },
+    {
+      "key": "Relay connected",
+      "value": "Relay connected"
+    },
+    {
+      "key": "Relay offline · retrying",
+      "value": "Relay offline · retrying"
+    },
+    {
+      "key": "Reload config",
+      "value": "Reload config"
+    },
+    {
+      "key": "Remote permissions",
+      "value": "Remote permissions"
+    },
+    {
+      "key": "RemoteOSC config folder",
+      "value": "RemoteOSC config folder"
+    },
+    {
+      "key": "RemoteOSC could not export the avatar config: {0}",
+      "value": "RemoteOSC could not export the avatar config: {0}"
+    },
+    {
+      "key": "RemoteOSC exported final avatar mapping to {0}",
+      "value": "RemoteOSC exported final avatar mapping to {0}"
+    },
+    {
+      "key": "RemoteOSC: excluded names were renamed without a menu binding. All parameters are blocked; review the final mapping.",
+      "value": "RemoteOSC: excluded names were renamed without a menu binding. All parameters are blocked; review the final mapping."
+    },
+    {
+      "key": "RemoteOSC: no avatar ID yet. Upload the avatar once, then build again to export its config.",
+      "value": "RemoteOSC: no avatar ID yet. Upload the avatar once, then build again to export its config."
+    },
+    {
+      "key": "RemoteOSC: put exactly one exporter on the avatar root.",
+      "value": "RemoteOSC: put exactly one exporter on the avatar root."
+    },
+    {
+      "key": "Right",
+      "value": "Right"
+    },
+    {
+      "key": "Root menu",
+      "value": "Root menu"
+    },
+    {
+      "key": "Save",
+      "value": "Save"
+    },
+    {
+      "key": "Save display name",
+      "value": "Save display name"
+    },
+    {
+      "key": "Save settings",
+      "value": "Save settings"
+    },
+    {
+      "key": "Search parameters",
+      "value": "Search parameters"
+    },
+    {
+      "key": "Search shared parameters",
+      "value": "Search shared parameters"
+    },
+    {
+      "key": "Select a connection to show its avatar menus and parameters.",
+      "value": "Select a connection to show its avatar menus and parameters."
+    },
+    {
+      "key": "Send port changes apply after restarting RemoteOSC.",
+      "value": "Send port changes apply after restarting RemoteOSC."
+    },
+    {
+      "key": "Send to VRChat",
+      "value": "Send to VRChat"
+    },
+    {
+      "key": "Set value",
+      "value": "Set value"
+    },
+    {
+      "key": "Settings",
+      "value": "Settings"
+    },
+    {
+      "key": "Settings file",
+      "value": "Settings file"
+    },
+    {
+      "key": "Settings file path",
+      "value": "Settings file path"
+    },
+    {
+      "key": "Settings saved. Restart the app if you changed the language or OSC ports.",
+      "value": "Settings saved. Restart the app if you changed the language or OSC ports."
+    },
+    {
+      "key": "Shared",
+      "value": "Shared"
+    },
+    {
+      "key": "Show folder",
+      "value": "Show folder"
+    },
+    {
+      "key": "Show peer code",
+      "value": "Show peer code"
+    },
+    {
+      "key": "Source preview. Final parameter names and menus are exported after the avatar build tools run.",
+      "value": "Source preview. Final parameter names and menus are exported after the avatar build tools run."
+    },
+    {
+      "key": "SubMenu",
+      "value": "SubMenu"
+    },
+    {
+      "key": "System default",
+      "value": "System default"
+    },
+    {
+      "key": "System parameters and animator triggers are always blocked.",
+      "value": "System parameters and animator triggers are always blocked."
+    },
+    {
+      "key": "The OSC send port must be a number between 1 and 65535.",
+      "value": "The OSC send port must be a number between 1 and 65535."
+    },
+    {
+      "key": "The OSC send port must be a whole number.",
+      "value": "The OSC send port must be a whole number."
+    },
+    {
+      "key": "The VRChat cache avatar ID does not match.",
+      "value": "The VRChat cache avatar ID does not match."
+    },
+    {
+      "key": "The avatar ID in the config does not match its filename.",
+      "value": "The avatar ID in the config does not match its filename."
+    },
+    {
+      "key": "The avatar has an invalid blueprint ID.",
+      "value": "The avatar has an invalid blueprint ID."
+    },
+    {
+      "key": "The client identity file is invalid. Restore identity.token from a backup or delete it to create a new peer identity.",
+      "value": "The client identity file is invalid. Restore identity.token from a backup or delete it to create a new peer identity."
+    },
+    {
+      "key": "The client runtime has already started.",
+      "value": "The client runtime has already started."
+    },
+    {
+      "key": "The config is written here during the avatar build.",
+      "value": "The config is written here during the avatar build."
+    },
+    {
+      "key": "The coordinator does not support persistent peer identities. Update the coordinator before connecting this client.",
+      "value": "The coordinator does not support persistent peer identities. Update the coordinator before connecting this client."
+    },
+    {
+      "key": "The coordinator does not support release version checking. Update the coordinator before connecting this client.",
+      "value": "The coordinator does not support release version checking. Update the coordinator before connecting this client."
+    },
+    {
+      "key": "The local OSC connection is not running.",
+      "value": "The local OSC connection is not running."
+    },
+    {
+      "key": "The peer declined your connection request.",
+      "value": "The peer declined your connection request."
+    },
+    {
+      "key": "The peer's avatar or permissions changed. Refresh controls.",
+      "value": "The peer's avatar or permissions changed. Refresh controls."
+    },
+    {
+      "key": "This avatar has multiple RemoteOSC exporters. Keep one component so its build can export.",
+      "value": "This avatar has multiple RemoteOSC exporters. Keep one component so its build can export."
+    },
+    {
+      "key": "This client is version {0}. The coordinator requires version {1}. Install the latest RemoteOSC release before connecting.",
+      "value": "This client is version {0}. The coordinator requires version {1}. Install the latest RemoteOSC release before connecting."
+    },
+    {
+      "key": "This friend has muted the connection.",
+      "value": "This friend has muted the connection."
+    },
+    {
+      "key": "This parameter is blocked by the Unity config.",
+      "value": "This parameter is blocked by the Unity config."
+    },
+    {
+      "key": "This parameter is not controllable.",
+      "value": "This parameter is not controllable."
+    },
+    {
+      "key": "This peer is not available for control.",
+      "value": "This peer is not available for control."
+    },
+    {
+      "key": "Toggle",
+      "value": "Toggle"
+    },
+    {
+      "key": "Toggle on / off",
+      "value": "Toggle on / off"
+    },
+    {
+      "key": "TwoAxisPuppet",
+      "value": "TwoAxisPuppet"
+    },
+    {
+      "key": "Unknown peer action.",
+      "value": "Unknown peer action."
+    },
+    {
+      "key": "Unmute",
+      "value": "Unmute"
+    },
+    {
+      "key": "Unsupported OSC parameter type '{0}'.",
+      "value": "Unsupported OSC parameter type '{0}'."
+    },
+    {
+      "key": "Unsupported avatar config version or invalid avatar ID.",
+      "value": "Unsupported avatar config version or invalid avatar ID."
+    },
+    {
+      "key": "Unsupported coordinator URL.",
+      "value": "Unsupported coordinator URL."
+    },
+    {
+      "key": "Up",
+      "value": "Up"
+    },
+    {
+      "key": "Upload the avatar once, then build again to export its config.",
+      "value": "Upload the avatar once, then build again to export its config."
+    },
+    {
+      "key": "Use exact names or stable menu paths for controls generated during the build. A menu path also excludes its child controls.",
+      "value": "Use exact names or stable menu paths for controls generated during the build. A menu path also excludes its child controls."
+    },
+    {
+      "key": "Use −1 to 1",
+      "value": "Use −1 to 1"
+    },
+    {
+      "key": "Uses a system parameter or animator trigger.",
+      "value": "Uses a system parameter or animator trigger."
+    },
+    {
+      "key": "VRChat OSC cache folder",
+      "value": "VRChat OSC cache folder"
+    },
+    {
+      "key": "VRChat discovers RemoteOSC through OSCQuery. The receive port is assigned automatically.",
+      "value": "VRChat discovers RemoteOSC through OSCQuery. The receive port is assigned automatically."
+    },
+    {
+      "key": "Waiting for VRChat. Enable OSC in VRChat and wear an avatar.",
+      "value": "Waiting for VRChat. Enable OSC in VRChat and wear an avatar."
+    },
+    {
+      "key": "Waiting for an avatar ID",
+      "value": "Waiting for an avatar ID"
+    },
+    {
+      "key": "You (local)",
+      "value": "You (local)"
+    },
+    {
+      "key": "Your avatar changed. Refresh the permissions list.",
+      "value": "Your avatar changed. Refresh the permissions list."
+    },
+    {
+      "key": "Your avatar or permissions changed. Refresh controls.",
+      "value": "Your avatar or permissions changed. Refresh controls."
+    },
+    {
+      "key": "Your code",
+      "value": "Your code"
+    },
+    {
+      "key": "Your connections",
+      "value": "Your connections"
+    },
+    {
+      "key": "Your shared controls",
+      "value": "Your shared controls"
+    },
+    {
+      "key": "{0}  ({1})",
+      "value": "{0}  ({1})"
+    },
+    {
+      "key": "{0} detected. Click Save settings to apply it.",
+      "value": "{0} detected. Click Save settings to apply it."
+    },
+    {
+      "key": "{0} page",
+      "value": "{0} page"
+    },
+    {
+      "key": "{0} puppet",
+      "value": "{0} puppet"
+    },
+    {
+      "key": "{0} shared  ·  {1} blocked  ·  {2} protected",
+      "value": "{0} shared  ·  {1} blocked  ·  {2} protected"
+    },
+    {
+      "key": "{0} shown",
+      "value": "{0} shown"
+    },
+    {
+      "key": "{0} wants to connect with you.",
+      "value": "{0} wants to connect with you."
+    },
+    {
+      "key": "{0}'s controls",
+      "value": "{0}'s controls"
+    },
+    {
+      "key": "‹ Back to expressions",
+      "value": "‹ Back to expressions"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "RemoteOSC.Unity.Editor",
+  "rootNamespace": "RemoteOSC.Unity.Editor",
+  "references": ["RemoteOSC.Unity"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}
