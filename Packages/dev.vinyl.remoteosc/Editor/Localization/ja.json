@@ -32,7 +32,7 @@
     },
     {
       "key": "Allow shown",
-      "value": "表示中を許可"
+      "value": "表示中の項目を許可"
     },
     {
       "key": "Apply value",
@@ -84,7 +84,7 @@
     },
     {
       "key": "Block shown",
-      "value": "表示中をブロック"
+      "value": "表示中の項目をブロック"
     },
     {
       "key": "Blocked",
@@ -200,7 +200,7 @@
     },
     {
       "key": "Coordinator send timed out.",
-      "value": "コーディネーターへの送信がタイムアウトしました。"
+      "value": "中継サーバーへの送信がタイムアウトしました。"
     },
     {
       "key": "Coordinator: {0}",
@@ -304,7 +304,7 @@
     },
     {
       "key": "Float parameter range exceeds OSC limits.",
-      "value": "浮動小数点数パラメーターの範囲が OSC の上限を超えています。"
+      "value": "浮動小数点数パラメーターの値が OSC で表現可能な範囲を超えています。"
     },
     {
       "key": "Folder browsing is unavailable on this platform.",
@@ -332,7 +332,7 @@
     },
     {
       "key": "Integer parameter range exceeds OSC limits.",
-      "value": "整数パラメーターの範囲が OSC の上限を超えています。"
+      "value": "整数パラメーターの値が OSC で表現可能な範囲を超えています。"
     },
     {
       "key": "Integer parameters require whole numbers.",
@@ -536,7 +536,7 @@
     },
     {
       "key": "Persistent peer identities require an encrypted coordinator connection.",
-      "value": "接続相手の識別情報を保持するには、中継サーバーとの暗号化された接続が必要です。"
+      "value": "永続的な識別情報を使用するには、中継サーバーとの暗号化された接続が必要です。"
     },
     {
       "key": "Profile",
@@ -724,7 +724,7 @@
     },
     {
       "key": "The coordinator does not support persistent peer identities. Update the coordinator before connecting this client.",
-      "value": "中継サーバーが接続相手の識別情報の保持に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
+      "value": "中継サーバーが識別情報の永続化に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
     },
     {
       "key": "The coordinator does not support release version checking. Update the coordinator before connecting this client.",
@@ -828,11 +828,11 @@
     },
     {
       "key": "Waiting for VRChat. Enable OSC in VRChat and wear an avatar.",
-      "value": "VRChat を待機中です。VRChat で OSC を有効にしてアバターを着用してください。"
+      "value": "VRChat からの情報を待っています。VRChat で OSC を有効にしてアバターを読み込んでください。"
     },
     {
       "key": "Waiting for an avatar ID",
-      "value": "アバター ID を待機中"
+      "value": "アバター ID の取得待ち"
     },
     {
       "key": "You (local)",
@@ -868,7 +868,7 @@
     },
     {
       "key": "{0} page",
-      "value": "{0}"
+      "value": "ページ移動: {0}"
     },
     {
       "key": "{0} puppet",
