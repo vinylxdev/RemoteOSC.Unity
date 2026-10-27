@@ -68,7 +68,7 @@
     },
     {
       "key": "Avatar parameter names must be nonempty and unique.",
-      "value": "アバターのパラメーター名は空にできず、重複もできません。"
+      "value": "アバターのパラメーター名は空にせず、重複しない名前を指定してください。"
     },
     {
       "key": "Back",
@@ -108,7 +108,7 @@
     },
     {
       "key": "Browse {0}",
-      "value": "{0}を参照"
+      "value": "{0} を参照"
     },
     {
       "key": "Browse…",
@@ -124,7 +124,7 @@
     },
     {
       "key": "Cancel request",
-      "value": "申請を取り消す"
+      "value": "リクエストを取り消す"
     },
     {
       "key": "Cannot read client state.",
@@ -144,7 +144,7 @@
     },
     {
       "key": "Choose {0}",
-      "value": "{0}を選択"
+      "value": "{0} を選択"
     },
     {
       "key": "Connect",
@@ -176,7 +176,7 @@
     },
     {
       "key": "Coordinator connection closed.",
-      "value": "中継サーバーとの接続が閉じられました。"
+      "value": "中継サーバーとの接続が切れました。"
     },
     {
       "key": "Coordinator error.",
@@ -304,7 +304,7 @@
     },
     {
       "key": "Float parameter range exceeds OSC limits.",
-      "value": "浮動小数点数パラメーターの値が OSC で表現可能な範囲を超えています。"
+      "value": "浮動小数点数パラメーターの範囲が、OSC で扱える範囲を超えています。"
     },
     {
       "key": "Folder browsing is unavailable on this platform.",
@@ -332,7 +332,7 @@
     },
     {
       "key": "Integer parameter range exceeds OSC limits.",
-      "value": "整数パラメーターの値が OSC で表現可能な範囲を超えています。"
+      "value": "整数パラメーターの範囲が、OSC で扱える範囲を超えています。"
     },
     {
       "key": "Integer parameters require whole numbers.",
@@ -372,7 +372,7 @@
     },
     {
       "key": "Load avatar ID",
-      "value": "アバター ID を読み込む"
+      "value": "ID で読み込む"
     },
     {
       "key": "Loaded {0} parameters for {1}.",
@@ -388,11 +388,11 @@
     },
     {
       "key": "Menu control '{0}' refers to an unknown parameter.",
-      "value": "メニュー操作「{0}」が不明なパラメーターを参照しています。"
+      "value": "メニュー項目「{0}」が不明なパラメーターを参照しています。"
     },
     {
       "key": "Menu controls ({0})",
-      "value": "メニュー操作（{0}）"
+      "value": "メニュー項目（{0}）"
     },
     {
       "key": "Menu paths",
@@ -400,7 +400,7 @@
     },
     {
       "key": "Menu/control paths to exclude, such as Clothing/Hat. These survive parameter renaming.",
-      "value": "除外するメニューや操作のパスを指定します（例: Clothing/Hat）。パラメーター名が変更されても除外設定は維持されます。"
+      "value": "除外するメニューや操作項目のパスを指定します（例：Clothing/Hat）。パラメーター名が変わっても、除外設定は維持されます。"
     },
     {
       "key": "Missing OSC endpoint.",
@@ -420,7 +420,7 @@
     },
     {
       "key": "Muted by peer",
-      "value": "相手によるミュート"
+      "value": "相手が接続をミュート中"
     },
     {
       "key": "My parameters",
@@ -480,11 +480,11 @@
     },
     {
       "key": "No source menu controls found. Choose Parameters, or add generated menu paths under Advanced exclusions.",
-      "value": "元のメニュー操作が見つかりません。「パラメーター」を選択するか、「詳細な除外設定」にビルド時に生成されるメニューパスを追加してください。"
+      "value": "元のメニュー項目が見つかりません。「パラメーター」を選択するか、「詳細な除外設定」にビルド時に生成されるメニューパスを追加してください。"
     },
     {
       "key": "No source parameters found. Assign expression parameters or an animator controller to preview them here.",
-      "value": "元のパラメーターが見つかりません。Expression Parameters または Animator Controller を設定すると、ここにプレビューが表示されます。"
+      "value": "元のパラメーターが見つかりません。Expression Parameters または Animator Controller を割り当てると、ここにプレビューが表示されます。"
     },
     {
       "key": "No such parameter on the current avatar.",
@@ -592,7 +592,7 @@
     },
     {
       "key": "RemoteOSC: excluded names were renamed without a menu binding. All parameters are blocked; review the final mapping.",
-      "value": "RemoteOSC: 除外対象のパラメーター名が、対応するメニュー操作がないまま変更されました。安全のためすべてのパラメーターをブロックしています。最終的な対応関係を確認してください。"
+      "value": "RemoteOSC: 除外対象のパラメーター名が、対応するメニュー項目がないまま変更されました。安全のためすべてのパラメーターをブロックしています。最終的な対応関係を確認してください。"
     },
     {
       "key": "RemoteOSC: no avatar ID yet. Upload the avatar once, then build again to export its config.",
@@ -676,7 +676,7 @@
     },
     {
       "key": "Source preview. Final parameter names and menus are exported after the avatar build tools run.",
-      "value": "ビルド前のプレビューです。最終的なパラメーター名とメニューは、アバターのビルドツールの処理後に出力されます。"
+      "value": "元データのプレビューです。最終的なパラメーター名とメニューは、アバターのビルドツールによる処理後に出力されます。"
     },
     {
       "key": "SubMenu",
@@ -732,7 +732,7 @@
     },
     {
       "key": "The local OSC connection is not running.",
-      "value": "ローカルの OSC 接続が起動していません。"
+      "value": "ローカルの OSC 接続が動作していません。"
     },
     {
       "key": "The peer declined your connection request.",
@@ -784,7 +784,7 @@
     },
     {
       "key": "Unmute",
-      "value": "ミュート解除"
+      "value": "ミュートを解除"
     },
     {
       "key": "Unsupported OSC parameter type '{0}'.",
@@ -792,7 +792,7 @@
     },
     {
       "key": "Unsupported avatar config version or invalid avatar ID.",
-      "value": "アバター設定のバージョンが未対応か、アバター ID が無効です。"
+      "value": "アバター設定のバージョンに対応していないか、アバター ID が無効です。"
     },
     {
       "key": "Unsupported coordinator URL.",
@@ -808,7 +808,7 @@
     },
     {
       "key": "Use exact names or stable menu paths for controls generated during the build. A menu path also excludes its child controls.",
-      "value": "ビルド時に生成される操作は、完全一致の名前または変更されないメニューパスで除外してください。メニューパスを指定すると、その配下の操作も除外されます。"
+      "value": "ビルド時に生成される操作項目は、完全一致する名前か、変更されないメニューパスで除外してください。メニューパスを指定すると、その配下の項目も除外されます。"
     },
     {
       "key": "Use −1 to 1",
@@ -836,7 +836,7 @@
     },
     {
       "key": "You (local)",
-      "value": "あなた（ローカル）"
+      "value": "自分（ローカル）"
     },
     {
       "key": "Your avatar changed. Refresh the permissions list.",
@@ -848,7 +848,7 @@
     },
     {
       "key": "Your code",
-      "value": "自分のコード"
+      "value": "自分の接続コード"
     },
     {
       "key": "Your connections",
@@ -864,7 +864,7 @@
     },
     {
       "key": "{0} detected. Click Save settings to apply it.",
-      "value": "{0}が見つかりました。「設定を保存」をクリックして適用してください。"
+      "value": "{0} が見つかりました。「設定を保存」をクリックして適用してください。"
     },
     {
       "key": "{0} page",
@@ -872,7 +872,7 @@
     },
     {
       "key": "{0} puppet",
-      "value": "{0}のパペット"
+      "value": "{0} のパペット"
     },
     {
       "key": "{0} shared  ·  {1} blocked  ·  {2} protected",
@@ -888,7 +888,7 @@
     },
     {
       "key": "{0}'s controls",
-      "value": "{0}の操作"
+      "value": "{0} の操作"
     },
     {
       "key": "‹ Back to expressions",
