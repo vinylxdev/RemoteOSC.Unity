@@ -155,8 +155,8 @@
       "value": "接続中"
     },
     {
-      "key": "Connecting to relay…",
-      "value": "中継サーバーに接続中…"
+      "key": "Connecting to coordinator…",
+      "value": "コーディネーターに接続中…"
     },
     {
       "key": "Connection muted. Unmute to continue.",
@@ -176,35 +176,35 @@
     },
     {
       "key": "Coordinator connection closed.",
-      "value": "中継サーバーとの接続が切れました。"
+      "value": "コーディネーターとの接続が切れました。"
     },
     {
       "key": "Coordinator error.",
-      "value": "中継サーバーでエラーが発生しました。"
+      "value": "コーディネーターでエラーが発生しました。"
     },
     {
       "key": "Coordinator is not connected.",
-      "value": "中継サーバーに接続されていません。"
+      "value": "コーディネーターに接続されていません。"
     },
     {
       "key": "Coordinator is offline.",
-      "value": "中継サーバーはオフラインです。"
+      "value": "コーディネーターはオフラインです。"
     },
     {
       "key": "Coordinator message exceeds the size limit.",
-      "value": "中継サーバーのメッセージがサイズの上限を超えています。"
+      "value": "コーディネーターのメッセージがサイズの上限を超えています。"
     },
     {
       "key": "Coordinator messages must be JSON text.",
-      "value": "中継サーバーのメッセージは JSON テキストである必要があります。"
+      "value": "コーディネーターのメッセージは JSON テキストである必要があります。"
     },
     {
       "key": "Coordinator send timed out.",
-      "value": "中継サーバーへの送信がタイムアウトしました。"
+      "value": "コーディネーターへの送信がタイムアウトしました。"
     },
     {
       "key": "Coordinator: {0}",
-      "value": "中継サーバー: {0}"
+      "value": "コーディネーター: {0}"
     },
     {
       "key": "Copy code",
@@ -536,7 +536,7 @@
     },
     {
       "key": "Persistent peer identities require an encrypted coordinator connection.",
-      "value": "永続的な識別情報を使用するには、中継サーバーとの暗号化された接続が必要です。"
+      "value": "永続的な識別情報を使用するには、コーディネーターとの暗号化された接続が必要です。"
     },
     {
       "key": "Profile",
@@ -563,12 +563,12 @@
       "value": "相対パスは、アプリのデータフォルダーを基準に解釈されます。"
     },
     {
-      "key": "Relay connected",
-      "value": "中継サーバーに接続中"
+      "key": "Coordinator connected",
+      "value": "コーディネーターに接続中"
     },
     {
-      "key": "Relay offline · retrying",
-      "value": "中継サーバーに未接続 · 再試行中"
+      "key": "Coordinator offline · retrying",
+      "value": "コーディネーターに未接続 · 再試行中"
     },
     {
       "key": "Reload config",
@@ -724,11 +724,11 @@
     },
     {
       "key": "The coordinator does not support persistent peer identities. Update the coordinator before connecting this client.",
-      "value": "中継サーバーが識別情報の永続化に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
+      "value": "コーディネーターが識別情報の永続化に対応していません。このクライアントを接続する前に、コーディネーターを更新してください。"
     },
     {
       "key": "The coordinator does not support release version checking. Update the coordinator before connecting this client.",
-      "value": "中継サーバーがバージョンの確認に対応していません。このクライアントを接続する前に、中継サーバーを更新してください。"
+      "value": "コーディネーターがバージョンの確認に対応していません。このクライアントを接続する前に、コーディネーターを更新してください。"
     },
     {
       "key": "The local OSC connection is not running.",
@@ -748,7 +748,7 @@
     },
     {
       "key": "This client is version {0}. The coordinator requires version {1}. Install the latest RemoteOSC release before connecting.",
-      "value": "このクライアントのバージョンは {0} ですが、中継サーバーが要求するバージョンは {1} です。接続する前に RemoteOSC の最新版をインストールしてください。"
+      "value": "このクライアントのバージョンは {0} ですが、コーディネーターが要求するバージョンは {1} です。接続する前に RemoteOSC の最新版をインストールしてください。"
     },
     {
       "key": "This friend has muted the connection.",
@@ -796,7 +796,7 @@
     },
     {
       "key": "Unsupported coordinator URL.",
-      "value": "対応していない中継サーバーの URL です。"
+      "value": "対応していないコーディネーターの URL です。"
     },
     {
       "key": "Up",

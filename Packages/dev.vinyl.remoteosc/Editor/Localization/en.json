@@ -155,8 +155,8 @@
       "value": "Connected"
     },
     {
-      "key": "Connecting to relay…",
-      "value": "Connecting to relay…"
+      "key": "Connecting to coordinator…",
+      "value": "Connecting to coordinator…"
     },
     {
       "key": "Connection muted. Unmute to continue.",
@@ -563,12 +563,12 @@
       "value": "Relative paths use the app's data folder."
     },
     {
-      "key": "Relay connected",
-      "value": "Relay connected"
+      "key": "Coordinator connected",
+      "value": "Coordinator connected"
     },
     {
-      "key": "Relay offline · retrying",
-      "value": "Relay offline · retrying"
+      "key": "Coordinator offline · retrying",
+      "value": "Coordinator offline · retrying"
     },
     {
       "key": "Reload config",
