@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace RemoteOSC.Unity.Editor
 {
-    // A source preview only: the build exporter still owns final names and permissions.
+    // Permission rows can use source or processed data; the build exporter owns final permissions.
     internal sealed class AvatarPermissionPreview
     {
         internal readonly List<Row> Parameters = new List<Row>();
@@ -16,11 +16,38 @@ namespace RemoteOSC.Unity.Editor
             IEnumerable<AvatarConfigExporter.ExportedParameter> parameters,
             IEnumerable<AvatarConfigExporter.ExportedControl> controls,
             IEnumerable<string> blockedParameters,
-            IEnumerable<string> blockedMenuPaths)
+            IEnumerable<string> blockedMenuPaths,
+            IEnumerable<RemoteOscAvatar.ParameterMenuBinding> blockedBindings = null)
         {
-            var definitions = parameters.ToList();
-            var menus = controls.ToList();
+            List<AvatarConfigExporter.ExportedParameter> definitions = parameters.ToList();
+            List<AvatarConfigExporter.ExportedControl> menus = controls.ToList();
             var blockedNames = new HashSet<string>(blockedParameters, StringComparer.Ordinal);
+            List<RemoteOscAvatar.ParameterMenuBinding> deniedBindings = (blockedBindings ?? Enumerable.Empty<RemoteOscAvatar.ParameterMenuBinding>())
+                .Where(binding => blockedNames.Contains(binding.Name)).ToList();
+            var renamedBlocks = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+            var splitRules = new HashSet<string>(StringComparer.Ordinal);
+            foreach (RemoteOscAvatar.ParameterMenuBinding binding in deniedBindings)
+            {
+                string[] targetNames = menus.Where(control => binding.MenuPaths.Contains(control.Path)).SelectMany(Bindings)
+                    .Distinct(StringComparer.Ordinal).ToArray();
+                if (targetNames.Length > 1)
+                {
+                    splitRules.Add(binding.Name);
+                }
+
+                foreach (string name in targetNames)
+                {
+                    if (!renamedBlocks.TryGetValue(name, out HashSet<string> sourceNames))
+                    {
+                        sourceNames = new HashSet<string>(StringComparer.Ordinal);
+                        renamedBlocks.Add(name, sourceNames);
+                    }
+
+                    sourceNames.Add(binding.Name);
+                }
+            }
+
+            blockedNames.UnionWith(renamedBlocks.Keys);
             var blockedPaths = new HashSet<string>(blockedMenuPaths, StringComparer.Ordinal);
             var protectedNames = new HashSet<string>(definitions.Where(parameter => !AvatarConfigExporter.CanControl(parameter))
                 .Select(parameter => parameter.Name), StringComparer.Ordinal);
@@ -45,25 +72,34 @@ namespace RemoteOSC.Unity.Editor
             foreach (AvatarConfigExporter.ExportedParameter parameter in definitions.OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
             {
                 bool bIsProtected = protectedNames.Contains(parameter.Name);
-                string reason = bIsProtected ? EditorText.Get("System parameters and animator triggers are always blocked.") : "";
+                string reason = bIsProtected ? EditorText.Get("unity.permissions.protected_hint") : "";
                 if (!bIsProtected && menuRules.TryGetValue(parameter.Name, out HashSet<string> rules))
                 {
-                    reason = EditorText.Get("Blocked by menu rule: {0}", string.Join(", ", rules.OrderBy(path => path, StringComparer.Ordinal)));
+                    reason = EditorText.Get("unity.permissions.blocked_by_menu", string.Join(", ", rules.OrderBy(path => path, StringComparer.Ordinal)));
+                }
+
+                renamedBlocks.TryGetValue(parameter.Name, out HashSet<string> sourceNames);
+                if (string.IsNullOrEmpty(reason) && sourceNames != null && sourceNames.Any(splitRules.Contains))
+                {
+                    reason = EditorText.Get("unity.permissions.split_exclusion");
                 }
 
                 Parameters.Add(new Row(parameter.Name, parameter.Name, "", parameter.Type, reason,
-                    blockedNames.Contains(parameter.Name), bIsProtected));
+                    blockedNames.Contains(parameter.Name), bIsProtected,
+                    menus.Where(control => Bindings(control).Contains(parameter.Name)).Select(control => control.Path).Distinct().ToArray(),
+                    sourceNames != null
+                        ? sourceNames.Concat(new[] { parameter.Name }).Distinct().ToArray() : new[] { parameter.Name }));
             }
 
             foreach (AvatarConfigExporter.ExportedControl control in menus.OrderBy(item => item.Path, StringComparer.OrdinalIgnoreCase))
             {
                 string[] bindings = Bindings(control).ToArray();
                 bool bIsProtected = bindings.Any(parameter => protectedNames.Contains(parameter));
-                string reason = bIsProtected ? EditorText.Get("Uses a system parameter or animator trigger.") : "";
+                string reason = bIsProtected ? EditorText.Get("unity.permissions.protected_binding_hint") : "";
                 string[] deniedNames = bindings.Where(parameter => blockedNames.Contains(parameter)).ToArray();
                 if (!bIsProtected && deniedNames.Length > 0)
                 {
-                    reason = EditorText.Get("Blocked by parameter: {0}", string.Join(", ", deniedNames));
+                    reason = EditorText.Get("unity.permissions.blocked_by_parameter", string.Join(", ", deniedNames));
                 }
 
                 // Allowing one row must never clear a parent rule or another control's exclusion.
@@ -73,10 +109,10 @@ namespace RemoteOSC.Unity.Editor
                     .Distinct(StringComparer.Ordinal).OrderBy(path => path, StringComparer.Ordinal).ToArray();
                 if (string.IsNullOrEmpty(reason) && otherRules.Length > 0)
                 {
-                    reason = EditorText.Get("Blocked by menu rule: {0}", string.Join(", ", otherRules));
+                    reason = EditorText.Get("unity.permissions.blocked_by_menu", string.Join(", ", otherRules));
                 }
 
-                string details = EditorText.Get(control.Kind) + (bindings.Length == 0 ? "" : "  ·  " + string.Join(", ", bindings));
+                string details = EditorText.GetControlKind(control.Kind) + (bindings.Length == 0 ? "" : "  ·  " + string.Join(", ", bindings));
                 Controls.Add(new Row(control.Path, control.Label, control.Menu, details, reason,
                     blockedPaths.Contains(control.Path), bIsProtected));
             }
@@ -103,8 +139,11 @@ namespace RemoteOSC.Unity.Editor
             internal readonly bool bIsAllowed;
             internal readonly bool bCanEdit;
             internal readonly bool bIsProtected;
+            internal readonly string[] MenuPaths;
+            internal readonly string[] BlockedKeys;
 
-            internal Row(string key, string label, string group, string details, string reason, bool bIsBlocked, bool bIsProtected)
+            internal Row(string key, string label, string group, string details, string reason, bool bIsBlocked, bool bIsProtected,
+                string[] menuPaths = null, string[] blockedKeys = null)
             {
                 Key = key;
                 Label = label;
@@ -114,6 +153,8 @@ namespace RemoteOSC.Unity.Editor
                 bCanEdit = string.IsNullOrEmpty(reason);
                 bIsAllowed = bCanEdit && !bIsBlocked;
                 this.bIsProtected = bIsProtected;
+                MenuPaths = menuPaths ?? Array.Empty<string>();
+                BlockedKeys = blockedKeys ?? new[] { key };
             }
 
             internal bool Matches(string search, int filter)

@@ -92,7 +92,6 @@ namespace RemoteOSC.Unity.Editor
                 throw new FormatException("Client YAML settings cannot contain tabs.");
             }
 
-            // Read only the root directory setting, including the client's quoted JSON string scalars.
             bool bHasDirectory = false;
             using (var reader = new StringReader(text))
             {

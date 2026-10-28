@@ -17,6 +17,11 @@ namespace RemoteOSC.Unity.Editor
 
         public bool OnPreprocessAvatar(GameObject avatarGameObject)
         {
+            if (AvatarBuildPreview.IsPreview(avatarGameObject))
+            {
+                return true;
+            }
+
             Snapshots.Clear();
             RemoteOscAvatar[] exporters = avatarGameObject.GetComponentsInChildren<RemoteOscAvatar>(true);
             if (exporters.Length == 0)
@@ -26,7 +31,7 @@ namespace RemoteOSC.Unity.Editor
 
             if (exporters.Length != 1)
             {
-                Debug.LogError(EditorText.Get("RemoteOSC: put exactly one exporter on the avatar root."));
+                Debug.LogError(EditorText.Get("unity.export.one_exporter_required"));
                 return false;
             }
 
@@ -34,6 +39,20 @@ namespace RemoteOSC.Unity.Editor
             var snapshot = new AvatarSnapshot { OutputDirectory = component.OutputDirectory };
             snapshot.BlockedParameters.UnionWith(component.BlockedParameterNames);
             snapshot.BlockedMenuPaths.UnionWith(component.BlockedMenuPaths);
+            snapshot.RequiredMenuPaths.UnionWith(component.BlockedGeneratedMenuPaths.Where(snapshot.BlockedMenuPaths.Contains));
+            foreach (RemoteOscAvatar.ParameterMenuBinding binding in component.BlockedParameterBindings)
+            {
+                if (!snapshot.BlockedParameters.Contains(binding.Name) || binding.MenuPaths.Count == 0)
+                {
+                    continue;
+                }
+
+                var paths = new HashSet<string>(binding.MenuPaths, StringComparer.Ordinal);
+                snapshot.BlockedParameterPaths[binding.Name] = paths;
+                snapshot.BlockedMenuPaths.UnionWith(paths);
+                snapshot.RequiredMenuPaths.UnionWith(paths);
+            }
+
             VRCAvatarDescriptor descriptor = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
             if (descriptor != null)
             {

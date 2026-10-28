@@ -1,10 +1,10 @@
 // Vinyl - vinyl.dev
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VRC.SDKBase;
 
-// Unity 2022.3 uses C# 9, which requires block-scoped namespaces.
 namespace RemoteOSC.Unity
 {
     [DisallowMultipleComponent]
@@ -19,5 +19,19 @@ namespace RemoteOSC.Unity
 
         [Tooltip("Menu/control paths to exclude, such as Clothing/Hat. These survive parameter renaming.")]
         public List<string> BlockedMenuPaths = new List<string>();
+
+        // Bind denied preview parameters to menus before generated names can change.
+        [HideInInspector]
+        public List<ParameterMenuBinding> BlockedParameterBindings = new List<ParameterMenuBinding>();
+
+        [HideInInspector]
+        public List<string> BlockedGeneratedMenuPaths = new List<string>();
+
+        [Serializable]
+        public sealed class ParameterMenuBinding
+        {
+            public string Name = "";
+            public List<string> MenuPaths = new List<string>();
+        }
     }
 }

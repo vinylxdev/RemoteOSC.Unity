@@ -35,7 +35,7 @@ namespace RemoteOSC.Unity.Editor
             PipelineManager pipeline = root.GetComponent<PipelineManager>();
             if (descriptor == null || pipeline == null || string.IsNullOrEmpty(pipeline.blueprintId))
             {
-                Debug.LogWarning(EditorText.Get("RemoteOSC: no avatar ID yet. Upload the avatar once, then build again to export its config."));
+                Debug.LogWarning(EditorText.Get("unity.export.avatar_id_required"));
                 return;
             }
 
@@ -43,7 +43,7 @@ namespace RemoteOSC.Unity.Editor
             if (!avatarId.StartsWith("avtr_", StringComparison.Ordinal) || avatarId.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0
                 || avatarId.Contains("/") || avatarId.Contains("\\"))
             {
-                throw new InvalidOperationException(EditorText.Get("The avatar has an invalid blueprint ID."));
+                throw new InvalidOperationException(EditorText.Get("unity.avatar.blueprint_invalid"));
             }
 
             List<ExportedParameter> parameters = ReadParameters(root, descriptor);
@@ -62,12 +62,13 @@ namespace RemoteOSC.Unity.Editor
             // If a denied raw parameter was renamed without any menu binding, its destination is unknowable.
             // Keep the export closed until the owner excludes its final name or a stable menu path.
             var finalControlPaths = new HashSet<string>(controls.Select(control => control.Path));
-            bool bHasUnresolvedBlock = snapshot.BlockedParameters.Any(name => !names.Contains(name)
+            bool bHasUnresolvedBlock = snapshot.RequiredMenuPaths.Any(path => !finalControlPaths.Contains(path))
+                || snapshot.BlockedParameters.Any(name => !names.Contains(name)
                 && (!snapshot.BlockedParameterPaths.TryGetValue(name, out HashSet<string> paths)
                     || !paths.All(path => finalControlPaths.Contains(path))));
             if (bHasUnresolvedBlock)
             {
-                Debug.LogWarning(EditorText.Get("RemoteOSC: excluded names were renamed without a menu binding. All parameters are blocked; review the final mapping."));
+                Debug.LogWarning(EditorText.Get("unity.export.exclusions_unresolved"));
             }
 
             var yaml = new StringBuilder();
@@ -85,7 +86,7 @@ namespace RemoteOSC.Unity.Editor
                 yaml.Append("    max: ").Append(parameter.Type == "Int" ? "255" : "1").Append('\n');
             }
 
-            var validControls = controls.Where(control =>
+            List<ExportedControl> validControls = controls.Where(control =>
                 (string.IsNullOrEmpty(control.Parameter) || names.Contains(control.Parameter))
                 && control.SubParameters.All(parameter => string.IsNullOrEmpty(parameter) || names.Contains(parameter))).ToList();
             yaml.Append(validControls.Count == 0 ? "controls: []\n" : "controls:\n");
@@ -115,7 +116,7 @@ namespace RemoteOSC.Unity.Editor
             }
 
             File.Move(path + ".tmp", path);
-            Debug.Log(EditorText.Get("RemoteOSC exported final avatar mapping to {0}", path));
+            Debug.Log(EditorText.Get("unity.export.succeeded", path));
         }
 
         internal static List<ExportedParameter> ReadParameters(GameObject root, VRCAvatarDescriptor descriptor)
@@ -154,7 +155,8 @@ namespace RemoteOSC.Unity.Editor
                             : parameter.type == AnimatorControllerParameterType.Float ? "Float" : "Bool",
                         DefaultValue = parameter.type == AnimatorControllerParameterType.Int ? parameter.defaultInt
                             : parameter.type == AnimatorControllerParameterType.Float ? parameter.defaultFloat : parameter.defaultBool ? 1 : 0,
-                        bIsTrigger = parameter.type == AnimatorControllerParameterType.Trigger,
+                        bIsTrigger = parameter.type == AnimatorControllerParameterType.Trigger
+                            || parameters.TryGetValue(parameter.name, out ExportedParameter previous) && previous.bIsTrigger,
                     };
                 }
             }
@@ -173,6 +175,7 @@ namespace RemoteOSC.Unity.Editor
                         Name = parameter.name,
                         Type = parameter.valueType.ToString(),
                         DefaultValue = parameter.defaultValue,
+                        bIsTrigger = parameters.TryGetValue(parameter.name, out ExportedParameter previous) && previous.bIsTrigger,
                     };
                 }
             }

@@ -16,19 +16,34 @@ namespace RemoteOSC.Unity.Editor
         private const string CatalogDirectory = "Packages/dev.vinyl.remoteosc/Editor/Localization";
         private static LocalizationCatalog catalog;
 
-        internal static string Get(string source, params object[] arguments)
+        internal static string Get(string key, params object[] arguments)
         {
             EnsureCatalog();
-            return catalog.Get(source, arguments);
+            return catalog.Get(key, arguments);
+        }
+
+        internal static string GetControlKind(string kind)
+        {
+            // SDK values remain unchanged in exported YAML; only their labels are translated.
+            return kind switch
+            {
+                "Button" => Get("menu.kind.button"),
+                "Toggle" => Get("menu.kind.toggle"),
+                "SubMenu" => Get("menu.kind.submenu"),
+                "TwoAxisPuppet" => Get("menu.kind.two_axis_puppet"),
+                "FourAxisPuppet" => Get("menu.kind.four_axis_puppet"),
+                "RadialPuppet" => Get("menu.kind.radial_puppet"),
+                _ => kind,
+            };
         }
 
         internal static void DrawLanguageSelector()
         {
             EnsureCatalog();
             string[] codes = new[] { "system" }.Concat(catalog.Languages.Keys.OrderBy(code => code, StringComparer.Ordinal)).ToArray();
-            string[] names = codes.Select(code => code == "system" ? Get("System default") : catalog.Languages[code]).ToArray();
+            string[] names = codes.Select(code => code == "system" ? Get("settings.language.system") : catalog.Languages[code]).ToArray();
             int current = Math.Max(0, Array.IndexOf(codes, EditorPrefs.GetString(PreferenceKey, "system")));
-            int selected = EditorGUILayout.Popup(Get("Language"), current, names);
+            int selected = EditorGUILayout.Popup(Get("settings.language"), current, names);
             if (selected != current)
             {
                 EditorPrefs.SetString(PreferenceKey, codes[selected]);

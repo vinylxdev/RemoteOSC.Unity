@@ -12,6 +12,11 @@ namespace RemoteOSC.Unity.Editor
 
         public bool OnPreprocessAvatar(GameObject avatarGameObject)
         {
+            if (AvatarBuildPreview.IsPreview(avatarGameObject))
+            {
+                return true;
+            }
+
             int id = avatarGameObject.GetInstanceID();
             if (!AvatarBuildCapture.Snapshots.TryGetValue(id, out AvatarSnapshot snapshot))
             {
@@ -26,7 +31,7 @@ namespace RemoteOSC.Unity.Editor
             }
             catch (Exception error)
             {
-                Debug.LogError(EditorText.Get("RemoteOSC could not export the avatar config: {0}", error.Message));
+                Debug.LogError(EditorText.Get("unity.export.failed", error.Message));
                 return false;
             }
         }

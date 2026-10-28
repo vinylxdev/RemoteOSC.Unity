@@ -16,7 +16,7 @@ namespace RemoteOSC.Localization
 
         public IReadOnlyDictionary<string, string> Languages { get; }
         public string Language { get; private set; } = "en";
-        public IEnumerable<string> Sources => translations["en"].Keys;
+        public IEnumerable<string> Keys => translations["en"].Keys;
 
         public LocalizationCatalog(IEnumerable<LanguageData> catalogs)
         {
@@ -87,16 +87,16 @@ namespace RemoteOSC.Localization
             Language = "en";
         }
 
-        public string Get(string source, params object[] arguments)
+        public string Get(string key, params object[] arguments)
         {
-            string english = translations["en"].TryGetValue(source, out string? original)
-                && original != null && original.Length > 0 ? original : source;
+            string english = translations["en"].TryGetValue(key, out string? original)
+                && original != null && original.Length > 0 ? original : key;
             string value = english;
             var culture = CultureInfo.GetCultureInfo(Language);
             for (CultureInfo candidate = culture; candidate.Name.Length > 0; candidate = candidate.Parent)
             {
                 if (translations.TryGetValue(candidate.Name, out Dictionary<string, string>? entries)
-                    && entries != null && entries.TryGetValue(source, out string? translated)
+                    && entries != null && entries.TryGetValue(key, out string? translated)
                     && translated != null && translated.Length > 0)
                 {
                     value = translated;
