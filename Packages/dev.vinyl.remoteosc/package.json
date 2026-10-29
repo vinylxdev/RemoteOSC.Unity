@@ -1,6 +1,6 @@
 {
   "name": "dev.vinyl.remoteosc",
-  "version": "1.2.7",
+  "version": "1.2.9",
   "displayName": "RemoteOSC Avatar Exporter",
   "description": "Export final avatar parameters and expression menus for RemoteOSC at build time.",
   "unity": "2022.3",
