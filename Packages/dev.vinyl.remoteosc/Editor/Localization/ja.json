@@ -480,11 +480,11 @@
     },
     {
       "key": "unity.permissions.no_source_controls",
-      "value": "元のメニュー項目が見つかりません。「パラメーター」を選択するか、「詳細な除外設定」にビルド時に生成されるメニューパスを追加してください。"
+      "value": "アバターのメニューや対応コンポーネントに操作項目が見つかりません。"
     },
     {
       "key": "unity.permissions.no_source_parameters",
-      "value": "元のパラメーターが見つかりません。Expression Parameters または Animator Controller を割り当てると、ここにプレビューが表示されます。"
+      "value": "アバターのアセットや対応コンポーネントにパラメーターが見つかりません。"
     },
     {
       "key": "parameter.not_found",
@@ -912,7 +912,7 @@
     },
     {
       "key": "unity.preview.refresh",
-      "value": "生成後のプレビューを更新"
+      "value": "最終プレビューを生成（任意）"
     },
     {
       "key": "unity.preview.stale",
@@ -920,15 +920,43 @@
     },
     {
       "key": "unity.preview.source",
-      "value": "元のアバターのプレビューです。VRCFury と Modular Avatar の操作項目を表示するには、生成後のプレビューを更新してください。"
+      "value": "コンポーネントからのプレビューです。「自動生成名」の名前はアバターのビルド時に確定します。最終的な全項目を確認するには、任意の生成プレビューを使用してください。"
     },
     {
       "key": "unity.preview.generated",
-      "value": "生成後のプレビューです。生成されたパラメーター名が変わっても、除外設定はメニューの対応関係を引き継ぎます。"
+      "value": "生成後のプレビューです。コンポーネントの除外設定はコンポーネント一覧で編集できます。"
     },
     {
       "key": "unity.permissions.split_exclusion",
       "value": "この生成後の除外設定は複数のパラメーターに適用されています。許可する前に「高度な除外設定」で確認してください。"
+    },
+    {
+      "key": "unity.preview.unresolved_source_exclusions",
+      "value": "一部のコンポーネントの除外設定を対応付けできませんでした。「高度な除外設定」の「コンポーネントの除外設定」を確認するまで、エクスポート時にすべてのパラメーターがブロックされます。"
+    },
+    {
+      "key": "unity.preview.refresh_components",
+      "value": "コンポーネント一覧を更新"
+    },
+    {
+      "key": "unity.preview.use_components",
+      "value": "コンポーネント一覧に戻る"
+    },
+    {
+      "key": "unity.preview.generated_name",
+      "value": "自動生成名"
+    },
+    {
+      "key": "unity.preview.unbound_parameter",
+      "value": "このパラメーターを編集するには生成プレビューを使用してください。"
+    },
+    {
+      "key": "unity.preview.inspection_warning",
+      "value": "一部の元データを読み取れませんでした：{0}。最終結果は生成プレビューで確認してください。"
+    },
+    {
+      "key": "unity.exclusions.source_entries",
+      "value": "コンポーネントの除外設定"
     }
   ]
 }

@@ -35,12 +35,50 @@ namespace RemoteOSC.Unity.Editor
             var state = new StringBuilder();
             var paths = new HashSet<string>(StringComparer.Ordinal);
             foreach (UnityEngine.Object dependency in EditorUtility.CollectDependencies(new UnityEngine.Object[] { source })
-                .Where(item => item != null && !(item is RemoteOscAvatar)).OrderBy(item => item.GetInstanceID()))
+                .Where(item => item != null && !(item is RemoteOscAvatar))
+                .OrderBy(item => item.GetInstanceID()))
             {
-                state.Append(dependency.GetInstanceID()).Append(':').Append(EditorUtility.GetDirtyCount(dependency)).Append('\n');
+                state.Append(dependency.GetInstanceID()).Append(':');
                 if (dependency is GameObject || dependency is Component || dependency is ScriptableObject)
                 {
-                    state.Append(EditorJsonUtility.ToJson(dependency)).Append('\n');
+                    // Keep managed-reference configuration in the fingerprint, but never accumulate every object's JSON in one avatar-sized string.
+                    state.Append(Hash128.Compute(EditorJsonUtility.ToJson(dependency))).Append('\n');
+                }
+                else
+                {
+                    if (dependency is Texture texture)
+                    {
+                        state.Append(texture.imageContentsHash).Append('\n');
+                    }
+
+                    // Native assets can contain megabytes of mesh/texture data. Unity hashes each top-level property's contents without expanding arrays into text.
+                    using (var serialized = new SerializedObject(dependency))
+                    using (SerializedProperty property = serialized.GetIterator())
+                    {
+                        bool bEnterChildren = true;
+                        while (property.Next(bEnterChildren))
+                        {
+                            bEnterChildren = false;
+                            state.Append(property.propertyPath)
+                                .Append(':')
+                                .Append(property.contentHash)
+                                .Append('\n');
+                        }
+                    }
+                }
+
+                if (dependency is Component component)
+                {
+                    state.Append(component.gameObject.GetInstanceID()).Append('\n');
+                }
+
+                // Editor JSON omits hierarchy links, so retain parentage and child order explicitly.
+                if (dependency is Transform transform && transform != source.transform)
+                {
+                    state.Append(transform.parent == null ? 0 : transform.parent.GetInstanceID())
+                        .Append(':')
+                        .Append(transform.GetSiblingIndex())
+                        .Append('\n');
                 }
 
                 string path = AssetDatabase.GetAssetPath(dependency);
@@ -70,8 +108,7 @@ namespace RemoteOSC.Unity.Editor
             int id = 0;
             try
             {
-                // Use the same SDK callbacks as an upload/test copy so optional build tools
-                // own their transformations and asset cloning, including parameter renaming.
+                // Use the same SDK callbacks as an upload/test copy so optional build tools own their transformations and asset cloning, including parameter renaming.
                 clone = UnityEngine.Object.Instantiate(source);
                 clone.name = source.name + "(Clone)";
                 SceneManager.MoveGameObjectToScene(clone, scene);

@@ -40,8 +40,11 @@ namespace RemoteOSC.Unity.Editor
         internal static void DrawLanguageSelector()
         {
             EnsureCatalog();
-            string[] codes = new[] { "system" }.Concat(catalog.Languages.Keys.OrderBy(code => code, StringComparer.Ordinal)).ToArray();
-            string[] names = codes.Select(code => code == "system" ? Get("settings.language.system") : catalog.Languages[code]).ToArray();
+            string[] codes = new[] { "system" }
+                .Concat(catalog.Languages.Keys.OrderBy(code => code, StringComparer.Ordinal))
+                .ToArray();
+            string[] names = codes.Select(code => code == "system" ? Get("settings.language.system") : catalog.Languages[code])
+                .ToArray();
             int current = Math.Max(0, Array.IndexOf(codes, EditorPrefs.GetString(PreferenceKey, "system")));
             int selected = EditorGUILayout.Popup(Get("settings.language"), current, names);
             if (selected != current)
@@ -59,7 +62,8 @@ namespace RemoteOSC.Unity.Editor
             }
 
             var languages = new List<LocalizationCatalog.LanguageData>();
-            foreach (string guid in AssetDatabase.FindAssets("t:TextAsset", new[] { CatalogDirectory }).OrderBy(value => value, StringComparer.Ordinal))
+            foreach (string guid in AssetDatabase.FindAssets("t:TextAsset", new[] { CatalogDirectory })
+                .OrderBy(value => value, StringComparer.Ordinal))
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 if (path.EndsWith(".json", StringComparison.OrdinalIgnoreCase))

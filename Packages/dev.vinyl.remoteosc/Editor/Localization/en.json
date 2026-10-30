@@ -480,11 +480,11 @@
     },
     {
       "key": "unity.permissions.no_source_controls",
-      "value": "No source menu controls found. Choose Parameters, or add generated menu paths under Advanced exclusions."
+      "value": "No controls found in the avatar menus or supported components."
     },
     {
       "key": "unity.permissions.no_source_parameters",
-      "value": "No source parameters found. Assign expression parameters or an animator controller to preview them here."
+      "value": "No parameters found in the avatar assets or supported components."
     },
     {
       "key": "parameter.not_found",
@@ -912,7 +912,7 @@
     },
     {
       "key": "unity.preview.refresh",
-      "value": "Refresh generated preview"
+      "value": "Generate exact preview (optional)"
     },
     {
       "key": "unity.preview.stale",
@@ -920,15 +920,43 @@
     },
     {
       "key": "unity.preview.source",
-      "value": "Source preview. Refresh generated preview to include VRCFury and Modular Avatar controls."
+      "value": "Component preview. Names marked as generated are resolved when you build the avatar. Use the optional generated preview to see the complete final list."
     },
     {
       "key": "unity.preview.generated",
-      "value": "Generated preview. Parameter exclusions follow their menu bindings when generated names change."
+      "value": "Generated preview. Edit component exclusions in the component list."
     },
     {
       "key": "unity.permissions.split_exclusion",
       "value": "This generated exclusion covers multiple parameters. Review it under Advanced exclusions before allowing them."
+    },
+    {
+      "key": "unity.preview.unresolved_source_exclusions",
+      "value": "Some component exclusions could not be matched. All parameters will remain blocked at export until you review Component exclusions under Advanced exclusions."
+    },
+    {
+      "key": "unity.preview.refresh_components",
+      "value": "Refresh component list"
+    },
+    {
+      "key": "unity.preview.use_components",
+      "value": "Use component list"
+    },
+    {
+      "key": "unity.preview.generated_name",
+      "value": "Generated name"
+    },
+    {
+      "key": "unity.preview.unbound_parameter",
+      "value": "Use generated preview to edit this parameter."
+    },
+    {
+      "key": "unity.preview.inspection_warning",
+      "value": "Some source entries could not be inspected: {0}. Use the generated preview to check the final result."
+    },
+    {
+      "key": "unity.exclusions.source_entries",
+      "value": "Component exclusions"
     }
   ]
 }

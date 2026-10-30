@@ -13,7 +13,8 @@ namespace RemoteOSC.Unity.Editor
     {
         internal static string Find()
         {
-            string dataDirectory = GetDataDirectory(Application.platform,
+            string dataDirectory = GetDataDirectory(
+                Application.platform,
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 Environment.GetEnvironmentVariable);
@@ -21,7 +22,10 @@ namespace RemoteOSC.Unity.Editor
         }
 
         internal static string GetDataDirectory(
-            RuntimePlatform platform, string profile, string localData, Func<string, string> readEnvironment)
+            RuntimePlatform platform,
+            string profile,
+            string localData,
+            Func<string, string> readEnvironment)
         {
             string configured = readEnvironment("REMOTEOSC_DATA_DIR");
             if (configured != null)
@@ -61,11 +65,13 @@ namespace RemoteOSC.Unity.Editor
                     return null;
                 }
 
-                string directory = Path.GetFullPath(Path.IsPathRooted(configured) ? configured : Path.Combine(dataDirectory, configured));
+                string directory = Path.GetFullPath(
+                    Path.IsPathRooted(configured) ? configured : Path.Combine(dataDirectory, configured));
                 return Directory.Exists(directory) ? directory : null;
             }
             catch (Exception error) when (error is IOException || error is UnauthorizedAccessException
-                || error is SecurityException || error is ArgumentException || error is NotSupportedException || error is FormatException)
+                || error is SecurityException || error is ArgumentException
+                || error is NotSupportedException || error is FormatException)
             {
                 // Detection is a picker convenience; unreadable settings must not prevent browsing.
                 return null;
@@ -104,7 +110,10 @@ namespace RemoteOSC.Unity.Editor
                     }
 
                     int colon = line.IndexOf(':');
-                    if (colon < 0 || !string.Equals(line.Substring(0, colon).Trim(), "avatarConfigDirectory", StringComparison.OrdinalIgnoreCase))
+                    if (colon < 0 || !string.Equals(
+                        line.Substring(0, colon).Trim(),
+                        "avatarConfigDirectory",
+                        StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }

@@ -33,10 +33,18 @@ namespace RemoteOSC.Unity.Editor.Tests
         private static void RunInspectorLifecycle()
         {
             var root = new GameObject("Preview lifecycle regression");
+            root.AddComponent<Animator>();
             VRCAvatarDescriptor descriptor = root.AddComponent<VRCAvatarDescriptor>();
             descriptor.baseAnimationLayers = Array.Empty<VRCAvatarDescriptor.CustomAnimLayer>();
             descriptor.specialAnimationLayers = Array.Empty<VRCAvatarDescriptor.CustomAnimLayer>();
             RemoteOscAvatar component = root.AddComponent<RemoteOscAvatar>();
+            var prop = new GameObject("Generated toggle target");
+            prop.transform.SetParent(root.transform, false);
+            object toggle = FindType("com.vrcfury.api.FuryComponents").GetMethod("CreateToggle").Invoke(null, new object[] { root });
+            toggle.GetType().GetMethod("SetMenuPath").Invoke(toggle, new object[] { "Fury/Lifecycle toggle" });
+            object actions = toggle.GetType().GetMethod("GetActions").Invoke(toggle, null);
+            actions.GetType().GetMethod("AddTurnOn").Invoke(actions, new object[] { prop });
+            prop.AddComponent(FindType("nadena.dev.modular_avatar.core.ModularAvatarParameters"));
             var editor = (RemoteOscAvatarEditor)UnityEditor.Editor.CreateEditor(component);
             GameObject change = null;
             Action cleanup = () =>
@@ -172,14 +180,22 @@ namespace RemoteOSC.Unity.Editor.Tests
                     FieldInfo blockedField = typeof(RemoteOscAvatarEditor).GetField("blockedParameters", BindingFlags.Instance | BindingFlags.NonPublic);
                     var blocked = (SerializedProperty)blockedField.GetValue(editor);
                     MethodInfo apply = typeof(RemoteOscAvatarEditor).GetMethod("ApplyPermission", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var permissions = new AvatarPermissionPreview(preview.Parameters, preview.Controls, component.BlockedParameterNames, component.BlockedMenuPaths);
+                    var permissions = new AvatarPermissionPreview(
+                        preview.Parameters,
+                        preview.Controls,
+                        component.BlockedParameterNames,
+                        component.BlockedMenuPaths);
                     AvatarPermissionPreview.Row row = permissions.Parameters.Single(item => item.Key == furyControl.Parameter);
                     apply.Invoke(editor, new object[] { blocked, row, false });
                     editor.serializedObject.ApplyModifiedProperties();
-                    Check(component.BlockedParameterBindings.Single().MenuPaths.Contains(furyControl.Path), "Inspector did not save the generated binding.");
+                    Check(
+                        component.BlockedParameterBindings.Single().MenuPaths.Contains(furyControl.Path),
+                        "Inspector did not save the generated binding.");
                     apply.Invoke(editor, new object[] { blocked, row, true });
                     editor.serializedObject.ApplyModifiedProperties();
-                    Check(component.BlockedParameterNames.Count == 0 && component.BlockedParameterBindings.Count == 0, "Allowing did not clear the generated exclusion.");
+                    Check(
+                        component.BlockedParameterNames.Count == 0 && component.BlockedParameterBindings.Count == 0,
+                        "Allowing did not clear the generated exclusion.");
                     FieldInfo menuField = typeof(RemoteOscAvatarEditor).GetField("blockedMenuPaths", BindingFlags.Instance | BindingFlags.NonPublic);
                     var blockedMenus = (SerializedProperty)menuField.GetValue(editor);
                     AvatarPermissionPreview.Row menuRow = permissions.Controls.Single(item => item.Key == furyControl.Path);

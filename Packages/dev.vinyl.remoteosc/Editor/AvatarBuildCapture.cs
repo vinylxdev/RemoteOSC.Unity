@@ -56,6 +56,15 @@ namespace RemoteOSC.Unity.Editor
             VRCAvatarDescriptor descriptor = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
             if (descriptor != null)
             {
+                if (component.BlockedSourceEntries.Count > 0)
+                {
+                    AvatarSourceDiscovery source = AvatarSourceDiscovery.Read(avatarGameObject, descriptor);
+                    HashSet<string> paths = source.ResolveExclusions(component.BlockedSourceEntries, out bool bHasUnresolvedBlock);
+                    snapshot.BlockedMenuPaths.UnionWith(paths);
+                    snapshot.RequiredMenuPaths.UnionWith(paths);
+                    snapshot.bHasUnresolvedSourceBlock = bHasUnresolvedBlock;
+                }
+
                 List<AvatarConfigExporter.ExportedControl> controls = AvatarConfigExporter.ReadControls(descriptor.expressionsMenu);
                 // Retain denied bindings if a build tool moves or renames the source menu.
                 foreach (AvatarConfigExporter.ExportedControl control in controls)

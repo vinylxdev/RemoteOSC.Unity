@@ -27,6 +27,17 @@ namespace RemoteOSC.Unity
         [HideInInspector]
         public List<string> BlockedGeneratedMenuPaths = new List<string>();
 
+        // Component references survive hierarchy edits and are remapped onto the upload clone.
+        [HideInInspector]
+        public List<SourceExclusion> BlockedSourceEntries = new List<SourceExclusion>();
+
+        [Serializable]
+        public sealed class SourceExclusion
+        {
+            public Component Source;
+            public string Key = "";
+        }
+
         [Serializable]
         public sealed class ParameterMenuBinding
         {

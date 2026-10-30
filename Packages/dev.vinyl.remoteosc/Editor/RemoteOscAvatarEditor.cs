@@ -15,18 +15,39 @@ namespace RemoteOSC.Unity.Editor
     [CustomEditor(typeof(RemoteOscAvatar))]
     public sealed class RemoteOscAvatarEditor : UnityEditor.Editor
     {
-        private static string[] Filters => new[] { EditorText.Get("common.all"), EditorText.Get("permissions.shared"), EditorText.Get("permissions.blocked") };
+        private const float PermissionRowHeight = 40;
+        private const float MaximumListHeight = 420;
+        private static string[] Filters => new[]
+        {
+            EditorText.Get("common.all"),
+            EditorText.Get("permissions.shared"),
+            EditorText.Get("permissions.blocked")
+        };
+
         private readonly HashSet<string> collapsedMenus = new HashSet<string>(StringComparer.Ordinal);
         private SerializedProperty outputDirectory;
         private SerializedProperty blockedParameters;
         private SerializedProperty blockedMenuPaths;
         private SerializedProperty blockedParameterBindings;
         private SerializedProperty blockedGeneratedMenuPaths;
+        private SerializedProperty blockedSourceEntries;
         private AvatarBuildPreview buildPreview;
+        private AvatarPermissionPreview permissionPreview;
+        private AvatarSourceDiscovery sourcePreview;
+        private int permissionDirtyCount;
+        private string permissionLanguage;
+        private AvatarPermissionPreview filteredPreview;
+        private string filteredSearch;
+        private int filteredTab;
+        private int filteredFilter;
+        private List<AvatarPermissionPreview.Row> filteredRows;
+        private List<List<AvatarPermissionPreview.Row>> filteredGroups;
         private Hash128 previewSourceHash;
         private string previewError = "";
         private bool bIsPreviewStale;
         private bool bIsPreviewQueued;
+        private bool bIsSourceCheckQueued;
+        private bool bHasUnresolvedSourceExclusions;
         private SearchField searchField;
         private string search = "";
         private int selectedTab;
@@ -45,6 +66,7 @@ namespace RemoteOSC.Unity.Editor
             blockedMenuPaths = serializedObject.FindProperty("BlockedMenuPaths");
             blockedParameterBindings = serializedObject.FindProperty("BlockedParameterBindings");
             blockedGeneratedMenuPaths = serializedObject.FindProperty("BlockedGeneratedMenuPaths");
+            blockedSourceEntries = serializedObject.FindProperty("BlockedSourceEntries");
             searchField = new SearchField();
             Undo.undoRedoPerformed += InvalidatePreview;
             Undo.postprocessModifications += OnModifications;
@@ -59,10 +81,12 @@ namespace RemoteOSC.Unity.Editor
             EditorApplication.hierarchyChanged -= InvalidatePreview;
             EditorApplication.projectChanged -= InvalidatePreview;
             EditorApplication.delayCall -= RefreshPreview;
+            EditorApplication.delayCall -= CheckPreviewSource;
         }
 
         private UndoPropertyModification[] OnModifications(UndoPropertyModification[] modifications)
         {
+            permissionPreview = null;
             if (modifications.Any(modification => modification.currentValue.target != target))
             {
                 InvalidatePreview();
@@ -73,8 +97,24 @@ namespace RemoteOSC.Unity.Editor
 
         private void InvalidatePreview()
         {
+            permissionPreview = null;
+            sourcePreview = null;
+            if (target == null || bIsSourceCheckQueued)
+            {
+                return;
+            }
+
+            // A build can emit many project/hierarchy notifications in one editor update.
+            bIsSourceCheckQueued = true;
+            EditorApplication.delayCall += CheckPreviewSource;
+        }
+
+        private void CheckPreviewSource()
+        {
+            bIsSourceCheckQueued = false;
             if (buildPreview == null || target == null)
             {
+                Repaint();
                 return;
             }
 
@@ -100,12 +140,15 @@ namespace RemoteOSC.Unity.Editor
             }
 
             buildPreview = null;
+            permissionPreview = null;
             previewError = "";
             try
             {
                 EditorUtility.DisplayProgressBar("RemoteOSC", EditorText.Get("unity.preview.generating"), 0.5f);
-                buildPreview = AvatarBuildPreview.Create(descriptor.gameObject);
-                previewSourceHash = AvatarBuildPreview.GetSourceHash(descriptor.gameObject);
+                AvatarBuildPreview generatedPreview = AvatarBuildPreview.Create(descriptor.gameObject);
+                Hash128 sourceHash = AvatarBuildPreview.GetSourceHash(descriptor.gameObject);
+                buildPreview = generatedPreview;
+                previewSourceHash = sourceHash;
                 bIsPreviewStale = false;
                 bNeedsInitialTab = true;
             }
@@ -133,18 +176,70 @@ namespace RemoteOSC.Unity.Editor
             if (descriptor != null)
             {
                 DrawPreviewActions();
-                var preview = new AvatarPermissionPreview(
-                    buildPreview == null ? AvatarConfigExporter.ReadParameters(descriptor.gameObject, descriptor) : buildPreview.Parameters,
-                    buildPreview == null ? AvatarConfigExporter.ReadControls(descriptor.expressionsMenu) : buildPreview.Controls,
-                    ReadStrings(blockedParameters), ReadStrings(blockedMenuPaths), component.BlockedParameterBindings);
-                using (new EditorGUI.DisabledScope(bIsPreviewStale || bIsPreviewQueued))
+                AvatarPermissionPreview preview = GetPermissionPreview(descriptor);
+                if (bHasUnresolvedSourceExclusions)
+                {
+                    EditorGUILayout.HelpBox(EditorText.Get("unity.preview.unresolved_source_exclusions"), MessageType.Warning);
+                }
+
+                if (buildPreview == null)
+                {
+                    foreach (string warning in sourcePreview.Warnings)
+                    {
+                        EditorGUILayout.HelpBox(EditorText.Get("unity.preview.inspection_warning", warning), MessageType.Warning);
+                    }
+                }
+
+                using (new EditorGUI.DisabledScope(
+                    bIsPreviewQueued || buildPreview != null && (bIsPreviewStale || bIsSourceCheckQueued)))
                 {
                     DrawPermissions(preview);
                 }
             }
 
             DrawAdvanced();
-            serializedObject.ApplyModifiedProperties();
+            if (serializedObject.ApplyModifiedProperties())
+            {
+                permissionPreview = null;
+            }
+        }
+
+        private AvatarPermissionPreview GetPermissionPreview(VRCAvatarDescriptor descriptor)
+        {
+            int dirtyCount = EditorUtility.GetDirtyCount(target);
+            string language = EditorText.Get("unity.permissions.title");
+            if (permissionPreview != null && permissionDirtyCount == dirtyCount && permissionLanguage == language)
+            {
+                return permissionPreview;
+            }
+
+            if (sourcePreview == null)
+            {
+                sourcePreview = AvatarSourceDiscovery.Read(descriptor.gameObject, descriptor);
+            }
+
+            var component = (RemoteOscAvatar)target;
+            IEnumerable<string> deniedPaths = ReadStrings(blockedMenuPaths);
+            bHasUnresolvedSourceExclusions = false;
+            if (component.BlockedSourceEntries.Count > 0)
+            {
+                HashSet<string> sourcePaths = sourcePreview.ResolveExclusions(
+                    component.BlockedSourceEntries,
+                    out bHasUnresolvedSourceExclusions);
+                if (buildPreview != null)
+                {
+                    deniedPaths = deniedPaths.Concat(sourcePaths);
+                }
+            }
+
+            permissionPreview = new AvatarPermissionPreview(
+                buildPreview == null ? sourcePreview.Parameters : buildPreview.Parameters,
+                buildPreview == null ? sourcePreview.Controls : buildPreview.Controls,
+                ReadStrings(blockedParameters), deniedPaths, component.BlockedParameterBindings,
+                buildPreview == null ? component.BlockedSourceEntries : null);
+            permissionDirtyCount = dirtyCount;
+            permissionLanguage = language;
+            return permissionPreview;
         }
 
         private void EnsureStyles()
@@ -162,7 +257,14 @@ namespace RemoteOSC.Unity.Editor
         private void DrawPreviewActions()
         {
             EditorGUILayout.Space(4);
-            using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || bIsPreviewQueued))
+            if (GUILayout.Button(EditorText.Get(
+                buildPreview == null ? "unity.preview.refresh_components" : "unity.preview.use_components")))
+            {
+                UseComponentPreview();
+            }
+
+            using (new EditorGUI.DisabledScope(
+                EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || bIsPreviewQueued))
             {
                 if (GUILayout.Button(EditorText.Get("unity.preview.refresh")))
                 {
@@ -180,6 +282,18 @@ namespace RemoteOSC.Unity.Editor
             {
                 EditorGUILayout.HelpBox(EditorText.Get("unity.preview.stale"), MessageType.Info);
             }
+        }
+
+        private void UseComponentPreview()
+        {
+            EditorApplication.delayCall -= RefreshPreview;
+            bIsPreviewQueued = false;
+            buildPreview = null;
+            permissionPreview = null;
+            sourcePreview = null;
+            previewError = "";
+            bIsPreviewStale = false;
+            bNeedsInitialTab = true;
         }
 
         private void DrawHeader(VRCAvatarDescriptor descriptor)
@@ -203,7 +317,9 @@ namespace RemoteOSC.Unity.Editor
 
                 PipelineManager pipeline = descriptor.GetComponent<PipelineManager>();
                 bool bHasId = pipeline != null && !string.IsNullOrEmpty(pipeline.blueprintId);
-                EditorGUILayout.LabelField(bHasId ? EditorText.Get("unity.export.ready") : EditorText.Get("unity.export.waiting_for_id"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(
+                    bHasId ? EditorText.Get("unity.export.ready") : EditorText.Get("unity.export.waiting_for_id"),
+                    EditorStyles.boldLabel);
                 if (bHasId)
                 {
                     EditorGUILayout.SelectableLabel(pipeline.blueprintId, EditorStyles.textField,
@@ -234,7 +350,10 @@ namespace RemoteOSC.Unity.Editor
                     {
                         string initial = string.IsNullOrWhiteSpace(outputDirectory.stringValue)
                             ? ClientAvatarDirectory.Find() : ResolveDirectory(outputDirectory.stringValue);
-                        string chosen = EditorUtility.OpenFolderPanel(EditorText.Get("unity.export.folder_dialog"), initial ?? Application.dataPath, "");
+                        string chosen = EditorUtility.OpenFolderPanel(
+                            EditorText.Get("unity.export.folder_dialog"),
+                            initial ?? Application.dataPath,
+                            "");
                         if (!string.IsNullOrEmpty(chosen))
                         {
                             string relative = FileUtil.GetProjectRelativePath(chosen);
@@ -281,13 +400,21 @@ namespace RemoteOSC.Unity.Editor
                 EditorGUILayout.LabelField(EditorText.Get("unity.permissions.title"), EditorStyles.boldLabel);
                 int shared = preview.Parameters.Count(row => row.bIsAllowed);
                 int protectedCount = preview.Parameters.Count(row => row.bIsProtected);
-                GUILayout.Label(EditorText.Get("unity.permissions.summary", shared, preview.Parameters.Count - shared - protectedCount, protectedCount), EditorStyles.wordWrappedMiniLabel);
+                GUILayout.Label(
+                    EditorText.Get("unity.permissions.summary", shared, preview.Parameters.Count - shared - protectedCount, protectedCount),
+                    EditorStyles.wordWrappedMiniLabel);
                 GUILayout.Label(buildPreview == null
                     ? EditorText.Get("unity.preview.source")
                     : EditorText.Get("unity.preview.generated"),
                     EditorStyles.wordWrappedMiniLabel);
                 EditorGUILayout.Space(6);
-                int nextTab = GUILayout.Toolbar(selectedTab, new[] { EditorText.Get("unity.permissions.controls_count", preview.Controls.Count), EditorText.Get("unity.permissions.parameters_count", preview.Parameters.Count) });
+                int nextTab = GUILayout.Toolbar(
+                    selectedTab,
+                    new[]
+                    {
+                        EditorText.Get("unity.permissions.controls_count", preview.Controls.Count),
+                        EditorText.Get("unity.permissions.parameters_count", preview.Parameters.Count)
+                    });
                 if (nextTab != selectedTab)
                 {
                     selectedTab = nextTab;
@@ -303,7 +430,9 @@ namespace RemoteOSC.Unity.Editor
                 }
 
                 List<AvatarPermissionPreview.Row> allRows = selectedTab == 0 ? preview.Controls : preview.Parameters;
-                List<AvatarPermissionPreview.Row> rows = allRows.Where(row => row.Matches(search, selectedFilter)).ToList();
+                UpdateFilteredRows(preview, allRows);
+
+                List<AvatarPermissionPreview.Row> rows = filteredRows;
                 SerializedProperty blocked = selectedTab == 0 ? blockedMenuPaths : blockedParameters;
                 DrawBulkActions(rows, blocked);
                 if (allRows.Count == 0)
@@ -320,26 +449,23 @@ namespace RemoteOSC.Unity.Editor
                     return;
                 }
 
-                int visibleRows = selectedTab == 0
-                    ? rows.Count(row => !collapsedMenus.Contains(row.Group) || !string.IsNullOrWhiteSpace(search))
-                    : rows.Count;
-                int groupCount = selectedTab == 0 ? rows.Select(row => row.Group).Distinct().Count() : 0;
-                float height = Mathf.Min(420, visibleRows * 40 + groupCount * (EditorGUIUtility.singleLineHeight + 2) + 6);
-                using (var scroll = new EditorGUILayout.ScrollViewScope(scrollPosition, GUILayout.Height(height)))
-                {
-                    scrollPosition = scroll.scrollPosition;
-                    if (selectedTab == 0)
-                    {
-                        DrawMenuGroups(rows, blocked);
-                    }
-                    else
-                    {
-                        foreach (AvatarPermissionPreview.Row row in rows)
-                        {
-                            DrawPermission(row, blocked);
-                        }
-                    }
-                }
+                DrawPermissionList(rows, blocked);
+            }
+        }
+
+        private void UpdateFilteredRows(AvatarPermissionPreview preview, List<AvatarPermissionPreview.Row> allRows)
+        {
+            if (filteredPreview != preview || filteredTab != selectedTab
+                || filteredSearch != search || filteredFilter != selectedFilter)
+            {
+                filteredRows = allRows.Where(row => row.Matches(search, selectedFilter)).ToList();
+                filteredGroups = filteredRows.GroupBy(row => row.Group)
+                    .Select(group => group.ToList())
+                    .ToList();
+                filteredPreview = preview;
+                filteredTab = selectedTab;
+                filteredSearch = search;
+                filteredFilter = selectedFilter;
             }
         }
 
@@ -358,7 +484,11 @@ namespace RemoteOSC.Unity.Editor
                 GUILayout.FlexibleSpace();
                 using (new EditorGUI.DisabledScope(!rows.Any(row => row.bCanEdit && !row.bIsAllowed)))
                 {
-                    if (GUILayout.Button(allowLabel, EditorStyles.miniButtonLeft, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                    if (GUILayout.Button(
+                        allowLabel,
+                        EditorStyles.miniButtonLeft,
+                        GUILayout.Width(buttonWidth),
+                        GUILayout.Height(buttonHeight)))
                     {
                         foreach (AvatarPermissionPreview.Row row in rows.Where(row => row.bCanEdit))
                         {
@@ -369,7 +499,11 @@ namespace RemoteOSC.Unity.Editor
 
                 using (new EditorGUI.DisabledScope(!rows.Any(row => row.bCanEdit && row.bIsAllowed)))
                 {
-                    if (GUILayout.Button(blockLabel, EditorStyles.miniButtonRight, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                    if (GUILayout.Button(
+                        blockLabel,
+                        EditorStyles.miniButtonRight,
+                        GUILayout.Width(buttonWidth),
+                        GUILayout.Height(buttonHeight)))
                     {
                         foreach (AvatarPermissionPreview.Row row in rows.Where(row => row.bCanEdit))
                         {
@@ -380,41 +514,97 @@ namespace RemoteOSC.Unity.Editor
             }
         }
 
-        private void DrawMenuGroups(List<AvatarPermissionPreview.Row> rows, SerializedProperty blocked)
+        private void DrawPermissionList(List<AvatarPermissionPreview.Row> rows, SerializedProperty blocked)
         {
-            foreach (IGrouping<string, AvatarPermissionPreview.Row> group in rows.GroupBy(row => row.Group))
+            float groupHeight = EditorGUIUtility.singleLineHeight + 2;
+            bool bIsSearching = !string.IsNullOrWhiteSpace(search);
+            float contentHeight = selectedTab == 0
+                ? filteredGroups.Sum(group => groupHeight
+                    + (collapsedMenus.Contains(group[0].Group) && !bIsSearching ? 0 : group.Count * PermissionRowHeight))
+                : rows.Count * PermissionRowHeight;
+            Rect viewport = GUILayoutUtility.GetRect(
+                0,
+                Mathf.Min(MaximumListHeight, contentHeight + 6),
+                GUILayout.ExpandWidth(true));
+            float width = Mathf.Max(0, viewport.width - GUI.skin.verticalScrollbar.fixedWidth - 2);
+            var content = new Rect(0, 0, width, contentHeight);
+            scrollPosition.y = Mathf.Clamp(scrollPosition.y, 0, Mathf.Max(0, contentHeight - viewport.height));
+            scrollPosition = GUI.BeginScrollView(viewport, scrollPosition, content);
+            try
             {
-                string label = EditorText.Get("unity.menu.group_count", string.IsNullOrEmpty(group.Key) ? EditorText.Get("unity.menu.root") : group.Key, group.Count());
-                bool bIsExpanded = !collapsedMenus.Contains(group.Key) || !string.IsNullOrWhiteSpace(search);
-                bool bShouldExpand = EditorGUILayout.Foldout(bIsExpanded, label, true);
-                if (bShouldExpand != bIsExpanded)
+                if (selectedTab != 0)
                 {
-                    if (bShouldExpand)
-                    {
-                        collapsedMenus.Remove(group.Key);
-                    }
-                    else
-                    {
-                        collapsedMenus.Add(group.Key);
-                    }
+                    DrawVisiblePermissions(rows, blocked, 0, width, viewport.height);
+                    return;
                 }
 
-                if (!bShouldExpand)
+                float top = 0;
+                foreach (List<AvatarPermissionPreview.Row> group in filteredGroups)
                 {
-                    continue;
-                }
+                    string key = group[0].Group;
+                    bool bIsExpanded = !collapsedMenus.Contains(key) || bIsSearching;
+                    if (top + groupHeight >= scrollPosition.y && top <= scrollPosition.y + viewport.height)
+                    {
+                        string label = EditorText.Get(
+                            "unity.menu.group_count",
+                            string.IsNullOrEmpty(key) ? EditorText.Get("unity.menu.root") : key,
+                            group.Count);
+                        bool bShouldExpand = EditorGUI.Foldout(new Rect(0, top, width, groupHeight), bIsExpanded, label, true);
+                        if (bShouldExpand != bIsExpanded)
+                        {
+                            if (bShouldExpand)
+                            {
+                                collapsedMenus.Remove(key);
+                            }
+                            else
+                            {
+                                collapsedMenus.Add(key);
+                            }
 
-                foreach (AvatarPermissionPreview.Row row in group)
-                {
-                    DrawPermission(row, blocked);
+                            Repaint();
+                        }
+                    }
+
+                    top += groupHeight;
+                    if (bIsExpanded)
+                    {
+                        DrawVisiblePermissions(group, blocked, top, width, viewport.height);
+                        top += group.Count * PermissionRowHeight;
+                    }
                 }
+            }
+            finally
+            {
+                GUI.EndScrollView();
             }
         }
 
-        private void DrawPermission(AvatarPermissionPreview.Row row, SerializedProperty blocked)
+        private void DrawVisiblePermissions(
+            List<AvatarPermissionPreview.Row> rows,
+            SerializedProperty blocked,
+            float top,
+            float width,
+            float viewportHeight)
         {
-            Rect rect = EditorGUILayout.GetControlRect(false, 38);
-            string tooltip = row.Key + "\n" + row.Details + (string.IsNullOrEmpty(row.Reason) ? "" : "\n" + row.Reason);
+            // Keep GUI work bounded by the viewport, even for thousands of generated entries.
+            int first = Mathf.Clamp(Mathf.FloorToInt((scrollPosition.y - top) / PermissionRowHeight), 0, rows.Count);
+            int end = Mathf.Clamp(
+                Mathf.CeilToInt((scrollPosition.y + viewportHeight - top) / PermissionRowHeight),
+                first,
+                rows.Count);
+            for (int index = first; index < end; index++)
+            {
+                DrawPermission(
+                    rows[index],
+                    blocked,
+                    new Rect(0, top + index * PermissionRowHeight, width, PermissionRowHeight - 2));
+            }
+        }
+
+        private void DrawPermission(AvatarPermissionPreview.Row row, SerializedProperty blocked, Rect rect)
+        {
+            string tooltip = (row.Source == null ? row.Key : row.Label) + "\n" + row.Details
+                + (string.IsNullOrEmpty(row.Reason) ? "" : "\n" + row.Reason);
             var toggleRect = new Rect(rect.x + 4, rect.y + 2, Mathf.Max(0, rect.width - 78), EditorGUIUtility.singleLineHeight);
             using (new EditorGUI.DisabledScope(!row.bCanEdit))
             {
@@ -425,13 +615,19 @@ namespace RemoteOSC.Unity.Editor
                 }
             }
 
-            string state = row.bIsProtected ? EditorText.Get("permissions.protected") : row.bIsAllowed ? EditorText.Get("permissions.shared") : EditorText.Get("permissions.blocked");
+            string state = row.bIsProtected ? EditorText.Get("permissions.protected")
+                : row.bIsAllowed ? EditorText.Get("permissions.shared") : EditorText.Get("permissions.blocked");
             stateStyle.normal.textColor = row.bIsAllowed
                 ? (EditorGUIUtility.isProSkin ? new Color(0.55f, 0.85f, 0.68f) : new Color(0.12f, 0.40f, 0.23f))
                 : EditorStyles.miniLabel.normal.textColor;
-            GUI.Label(new Rect(rect.xMax - 72, rect.y + 2, 68, EditorGUIUtility.singleLineHeight), new GUIContent(state, tooltip), stateStyle);
-            GUI.Label(new Rect(rect.x + 22, rect.y + 19, Mathf.Max(0, rect.width - 26), 16),
-                new GUIContent(string.IsNullOrEmpty(row.Reason) ? row.Details : row.Reason, tooltip), EditorStyles.miniLabel);
+            GUI.Label(
+                new Rect(rect.xMax - 72, rect.y + 2, 68, EditorGUIUtility.singleLineHeight),
+                new GUIContent(state, tooltip),
+                stateStyle);
+            GUI.Label(
+                new Rect(rect.x + 22, rect.y + 19, Mathf.Max(0, rect.width - 26), 16),
+                new GUIContent(string.IsNullOrEmpty(row.Reason) ? row.Details : row.Reason, tooltip),
+                EditorStyles.miniLabel);
         }
 
         private void DrawAdvanced()
@@ -457,6 +653,10 @@ namespace RemoteOSC.Unity.Editor
                         EditorText.Get("unity.exclusions.parameter_hint")), true);
                     EditorGUILayout.PropertyField(blockedMenuPaths, new GUIContent(EditorText.Get("unity.exclusions.menu_paths"),
                         EditorText.Get("unity.exclusions.menu_hint")), true);
+                    EditorGUILayout.PropertyField(
+                        blockedSourceEntries,
+                        new GUIContent(EditorText.Get("unity.exclusions.source_entries")),
+                        true);
                 }
             }
         }
@@ -488,6 +688,40 @@ namespace RemoteOSC.Unity.Editor
 
         private void ApplyPermission(SerializedProperty blocked, AvatarPermissionPreview.Row row, bool bShouldAllow)
         {
+            if (row.Source != null)
+            {
+                for (int index = blockedSourceEntries.arraySize - 1; index >= 0; index--)
+                {
+                    SerializedProperty entry = blockedSourceEntries.GetArrayElementAtIndex(index);
+                    if (entry.FindPropertyRelative("Source").objectReferenceValue == row.Source
+                        && entry.FindPropertyRelative("Key").stringValue == row.SourceKey)
+                    {
+                        blockedSourceEntries.DeleteArrayElementAtIndex(index);
+                    }
+                }
+
+                if (blocked == blockedMenuPaths)
+                {
+                    SetAllowed(blockedMenuPaths, row.Key, true);
+                    SetAllowed(blockedGeneratedMenuPaths, row.Key, true);
+                }
+                else
+                {
+                    ClearParameterRules(row);
+                }
+
+                if (!bShouldAllow)
+                {
+                    int index = blockedSourceEntries.arraySize;
+                    blockedSourceEntries.InsertArrayElementAtIndex(index);
+                    SerializedProperty entry = blockedSourceEntries.GetArrayElementAtIndex(index);
+                    entry.FindPropertyRelative("Source").objectReferenceValue = row.Source;
+                    entry.FindPropertyRelative("Key").stringValue = row.SourceKey;
+                }
+
+                return;
+            }
+
             if (blocked != blockedParameters)
             {
                 SetAllowed(blocked, row.Key, bShouldAllow);
@@ -495,17 +729,7 @@ namespace RemoteOSC.Unity.Editor
                 return;
             }
 
-            foreach (string key in row.BlockedKeys)
-            {
-                SetAllowed(blocked, key, true);
-                for (int index = blockedParameterBindings.arraySize - 1; index >= 0; index--)
-                {
-                    if (blockedParameterBindings.GetArrayElementAtIndex(index).FindPropertyRelative("Name").stringValue == key)
-                    {
-                        blockedParameterBindings.DeleteArrayElementAtIndex(index);
-                    }
-                }
-            }
+            ClearParameterRules(row);
 
             if (bShouldAllow)
             {
@@ -527,6 +751,21 @@ namespace RemoteOSC.Unity.Editor
             for (int index = 0; index < row.MenuPaths.Length; index++)
             {
                 paths.GetArrayElementAtIndex(index).stringValue = row.MenuPaths[index];
+            }
+        }
+
+        private void ClearParameterRules(AvatarPermissionPreview.Row row)
+        {
+            foreach (string key in row.BlockedKeys)
+            {
+                SetAllowed(blockedParameters, key, true);
+                for (int index = blockedParameterBindings.arraySize - 1; index >= 0; index--)
+                {
+                    if (blockedParameterBindings.GetArrayElementAtIndex(index).FindPropertyRelative("Name").stringValue == key)
+                    {
+                        blockedParameterBindings.DeleteArrayElementAtIndex(index);
+                    }
+                }
             }
         }
 

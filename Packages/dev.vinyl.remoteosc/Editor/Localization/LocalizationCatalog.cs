@@ -12,7 +12,8 @@ namespace RemoteOSC.Localization
     // Shared with the desktop core; keep this file compatible with Unity's C# 9.
     public sealed class LocalizationCatalog
     {
-        private readonly Dictionary<string, Dictionary<string, string>> translations = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, Dictionary<string, string>> translations
+            = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
 
         public IReadOnlyDictionary<string, string> Languages { get; }
         public string Language { get; private set; } = "en";

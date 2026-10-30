@@ -40,7 +40,8 @@ namespace RemoteOSC.Unity.Editor
             }
 
             string avatarId = pipeline.blueprintId;
-            if (!avatarId.StartsWith("avtr_", StringComparison.Ordinal) || avatarId.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0
+            if (!avatarId.StartsWith("avtr_", StringComparison.Ordinal)
+                || avatarId.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0
                 || avatarId.Contains("/") || avatarId.Contains("\\"))
             {
                 throw new InvalidOperationException(EditorText.Get("unity.avatar.blueprint_invalid"));
@@ -52,7 +53,8 @@ namespace RemoteOSC.Unity.Editor
             var blocked = new HashSet<string>(snapshot.BlockedParameters);
             foreach (ExportedControl control in controls)
             {
-                if (snapshot.BlockedMenuPaths.Any(path => control.Path == path || control.Path.StartsWith(path + "/", StringComparison.Ordinal)))
+                if (snapshot.BlockedMenuPaths.Any(path => control.Path == path
+                    || control.Path.StartsWith(path + "/", StringComparison.Ordinal)))
                 {
                     blocked.Add(control.Parameter);
                     blocked.UnionWith(control.SubParameters);
@@ -62,24 +64,31 @@ namespace RemoteOSC.Unity.Editor
             // If a denied raw parameter was renamed without any menu binding, its destination is unknowable.
             // Keep the export closed until the owner excludes its final name or a stable menu path.
             var finalControlPaths = new HashSet<string>(controls.Select(control => control.Path));
-            bool bHasUnresolvedBlock = snapshot.RequiredMenuPaths.Any(path => !finalControlPaths.Contains(path))
+            bool bHasUnresolvedBlock = snapshot.bHasUnresolvedSourceBlock
+                || snapshot.RequiredMenuPaths.Any(path => !finalControlPaths.Contains(path))
                 || snapshot.BlockedParameters.Any(name => !names.Contains(name)
-                && (!snapshot.BlockedParameterPaths.TryGetValue(name, out HashSet<string> paths)
-                    || !paths.All(path => finalControlPaths.Contains(path))));
+                    && (!snapshot.BlockedParameterPaths.TryGetValue(name, out HashSet<string> paths)
+                        || !paths.All(path => finalControlPaths.Contains(path))));
             if (bHasUnresolvedBlock)
             {
                 Debug.LogWarning(EditorText.Get("unity.export.exclusions_unresolved"));
             }
 
             var yaml = new StringBuilder();
-            yaml.Append("version: 1\navatarId: ").Append(Quote(avatarId)).Append("\nname: ").Append(Quote(root.name.Replace("(Clone)", ""))).Append('\n');
+            yaml.Append("version: 1\navatarId: ")
+                .Append(Quote(avatarId))
+                .Append("\nname: ")
+                .Append(Quote(root.name.Replace("(Clone)", "")))
+                .Append('\n');
             yaml.Append(parameters.Count == 0 ? "parameters: []\n" : "parameters:\n");
             foreach (ExportedParameter parameter in parameters.OrderBy(parameter => parameter.Name, StringComparer.Ordinal))
             {
                 bool bIsAllowed = !blocked.Contains(parameter.Name) && CanControl(parameter) && !bHasUnresolvedBlock;
                 yaml.Append("  - name: ").Append(Quote(parameter.Name)).Append('\n');
                 yaml.Append("    type: ").Append(Quote(parameter.Type)).Append('\n');
-                yaml.Append("    address: ").Append(Quote("/avatar/parameters/" + parameter.Name.Replace(' ', '_'))).Append('\n');
+                yaml.Append("    address: ")
+                    .Append(Quote("/avatar/parameters/" + parameter.Name.Replace(' ', '_')))
+                    .Append('\n');
                 yaml.Append("    allowed: ").Append(bIsAllowed ? "true" : "false").Append('\n');
                 yaml.Append("    defaultValue: ").Append(Number(parameter.DefaultValue)).Append('\n');
                 yaml.Append("    min: ").Append(parameter.Type == "Float" ? "-1" : "0").Append('\n');
@@ -87,8 +96,9 @@ namespace RemoteOSC.Unity.Editor
             }
 
             List<ExportedControl> validControls = controls.Where(control =>
-                (string.IsNullOrEmpty(control.Parameter) || names.Contains(control.Parameter))
-                && control.SubParameters.All(parameter => string.IsNullOrEmpty(parameter) || names.Contains(parameter))).ToList();
+                    (string.IsNullOrEmpty(control.Parameter) || names.Contains(control.Parameter))
+                    && control.SubParameters.All(parameter => string.IsNullOrEmpty(parameter) || names.Contains(parameter)))
+                .ToList();
             yaml.Append(validControls.Count == 0 ? "controls: []\n" : "controls:\n");
             foreach (ExportedControl control in validControls)
             {
@@ -128,36 +138,19 @@ namespace RemoteOSC.Unity.Editor
                 controllers.Add(animator.runtimeAnimatorController);
             }
 
-            foreach (VRCAvatarDescriptor.CustomAnimLayer layer in descriptor.baseAnimationLayers.Concat(descriptor.specialAnimationLayers))
+            foreach (VRCAvatarDescriptor.CustomAnimLayer layer in descriptor.baseAnimationLayers
+                .Concat(descriptor.specialAnimationLayers))
             {
                 controllers.Add(layer.animatorController);
             }
 
             foreach (RuntimeAnimatorController runtime in controllers.Where(controller => controller != null).Distinct())
             {
-                RuntimeAnimatorController source = runtime;
-                while (source is AnimatorOverrideController overrides)
+                foreach (ExportedParameter parameter in ReadControllerParameters(runtime))
                 {
-                    source = overrides.runtimeAnimatorController;
-                }
-
-                if (!(source is AnimatorController controller))
-                {
-                    continue;
-                }
-
-                foreach (AnimatorControllerParameter parameter in controller.parameters)
-                {
-                    parameters[parameter.name] = new ExportedParameter
-                    {
-                        Name = parameter.name,
-                        Type = parameter.type == AnimatorControllerParameterType.Int ? "Int"
-                            : parameter.type == AnimatorControllerParameterType.Float ? "Float" : "Bool",
-                        DefaultValue = parameter.type == AnimatorControllerParameterType.Int ? parameter.defaultInt
-                            : parameter.type == AnimatorControllerParameterType.Float ? parameter.defaultFloat : parameter.defaultBool ? 1 : 0,
-                        bIsTrigger = parameter.type == AnimatorControllerParameterType.Trigger
-                            || parameters.TryGetValue(parameter.name, out ExportedParameter previous) && previous.bIsTrigger,
-                    };
+                    parameter.bIsTrigger |= parameters.TryGetValue(parameter.Name, out ExportedParameter previous)
+                        && previous.bIsTrigger;
+                    parameters[parameter.Name] = parameter;
                 }
             }
 
@@ -183,6 +176,38 @@ namespace RemoteOSC.Unity.Editor
             return parameters.Values.ToList();
         }
 
+        internal static IEnumerable<ExportedParameter> ReadControllerParameters(RuntimeAnimatorController runtime)
+        {
+            if (runtime == null)
+            {
+                yield break;
+            }
+
+            while (runtime is AnimatorOverrideController overrides)
+            {
+                runtime = overrides.runtimeAnimatorController;
+            }
+
+            if (!(runtime is AnimatorController controller))
+            {
+                yield break;
+            }
+
+            foreach (AnimatorControllerParameter parameter in controller.parameters)
+            {
+                yield return new ExportedParameter
+                {
+                    Name = parameter.name,
+                    Type = parameter.type == AnimatorControllerParameterType.Int ? "Int"
+                        : parameter.type == AnimatorControllerParameterType.Float ? "Float" : "Bool",
+                    DefaultValue = parameter.type == AnimatorControllerParameterType.Int ? parameter.defaultInt
+                        : parameter.type == AnimatorControllerParameterType.Float ? parameter.defaultFloat
+                        : parameter.defaultBool ? 1 : 0,
+                    bIsTrigger = parameter.type == AnimatorControllerParameterType.Trigger,
+                };
+            }
+        }
+
         internal static List<ExportedControl> ReadControls(VRCExpressionsMenu menu)
         {
             var controls = new List<ExportedControl>();
@@ -190,7 +215,11 @@ namespace RemoteOSC.Unity.Editor
             return controls;
         }
 
-        private static void VisitMenu(VRCExpressionsMenu menu, string path, List<ExportedControl> result, HashSet<VRCExpressionsMenu> ancestors)
+        private static void VisitMenu(
+            VRCExpressionsMenu menu,
+            string path,
+            List<ExportedControl> result,
+            HashSet<VRCExpressionsMenu> ancestors)
         {
             if (menu == null || !ancestors.Add(menu))
             {
@@ -276,6 +305,10 @@ namespace RemoteOSC.Unity.Editor
             public string Type = "Float";
             public double DefaultValue;
             public bool bIsTrigger;
+            public string DisplayName = "";
+            public Component Source;
+            public string SourceKey = "";
+            public bool bIsGenerated;
         }
 
         internal sealed class ExportedControl
@@ -287,6 +320,8 @@ namespace RemoteOSC.Unity.Editor
             public string Parameter = "";
             public double Value = 1;
             public List<string> SubParameters = new List<string>();
+            public Component Source;
+            public string SourceKey = "";
         }
     }
 }
