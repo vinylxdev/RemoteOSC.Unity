@@ -55,10 +55,6 @@
       "value": "アバター設定"
     },
     {
-      "key": "avatar.controls",
-      "value": "アバターの操作"
-    },
-    {
       "key": "menu.avatar.title",
       "value": "アバターメニュー"
     },
@@ -153,10 +149,6 @@
     {
       "key": "connection.connected",
       "value": "接続中"
-    },
-    {
-      "key": "coordinator.connecting",
-      "value": "コーディネーターに接続中…"
     },
     {
       "key": "connection.muted_hint",
@@ -363,10 +355,6 @@
       "value": "言語"
     },
     {
-      "key": "settings.language.restart_hint",
-      "value": "言語の変更は RemoteOSC の再起動後に反映されます。"
-    },
-    {
       "key": "direction.left",
       "value": "左"
     },
@@ -423,10 +411,6 @@
       "value": "相手が接続をミュート中"
     },
     {
-      "key": "parameters.my_parameters",
-      "value": "自分のパラメーター"
-    },
-    {
       "key": "common.next",
       "value": "次へ"
     },
@@ -453,10 +437,6 @@
     {
       "key": "avatar.not_shared",
       "value": "アバター未共有"
-    },
-    {
-      "key": "parameters.local.empty_legacy",
-      "value": "操作可能なパラメーターが共有されていません。OSC を有効にしてアバターを読み込み、「自分のパラメーター」を確認してください。"
     },
     {
       "key": "parameters.peer.empty",
@@ -639,10 +619,6 @@
       "value": "送信ポートの変更は RemoteOSC の再起動後に反映されます。"
     },
     {
-      "key": "control.send_to_vrchat",
-      "value": "VRChat への送信ポート"
-    },
-    {
       "key": "control.value.set",
       "value": "値を設定"
     },
@@ -673,10 +649,6 @@
     {
       "key": "connection.code.show",
       "value": "接続コードを表示"
-    },
-    {
-      "key": "unity.preview.source_legacy",
-      "value": "元データのプレビューです。最終的なパラメーター名とメニューは、アバターのビルドツールによる処理後に出力されます。"
     },
     {
       "key": "menu.kind.submenu",
@@ -783,10 +755,6 @@
       "value": "不明な接続操作です。"
     },
     {
-      "key": "connection.unmute",
-      "value": "ミュートを解除"
-    },
-    {
       "key": "parameter.osc_type.unsupported",
       "value": "OSC パラメーターの型「{0}」には対応していません。"
     },
@@ -823,10 +791,6 @@
       "value": "VRChat OSC キャッシュフォルダー"
     },
     {
-      "key": "settings.osc.discovery_hint",
-      "value": "VRChat は OSCQuery 経由で RemoteOSC を検出します。受信ポートは自動で割り当てられます。"
-    },
-    {
       "key": "oscquery.waiting_for_vrchat",
       "value": "VRChat からの情報を待っています。VRChat で OSC を有効にしてアバターを読み込んでください。"
     },
@@ -849,14 +813,6 @@
     {
       "key": "connection.code.label",
       "value": "自分の接続コード"
-    },
-    {
-      "key": "connection.your_connections",
-      "value": "接続先"
-    },
-    {
-      "key": "control.your_shared",
-      "value": "自分が共有している操作"
     },
     {
       "key": "unity.menu.group_count",
@@ -885,10 +841,6 @@
     {
       "key": "connection.request.received",
       "value": "{0} から接続リクエストが届いています。"
-    },
-    {
-      "key": "control.peer.title",
-      "value": "{0} の操作"
     },
     {
       "key": "menu.expressions.back",
@@ -928,11 +880,11 @@
     },
     {
       "key": "unity.permissions.split_exclusion",
-      "value": "この生成後の除外設定は複数のパラメーターに適用されています。許可する前に「高度な除外設定」で確認してください。"
+      "value": "この生成後の除外設定は複数のパラメーターに適用されています。許可する前に「詳細な除外設定」で確認してください。"
     },
     {
       "key": "unity.preview.unresolved_source_exclusions",
-      "value": "一部のコンポーネントの除外設定を対応付けできませんでした。「高度な除外設定」の「コンポーネントの除外設定」を確認するまで、エクスポート時にすべてのパラメーターがブロックされます。"
+      "value": "一部のコンポーネントの除外設定を対応付けできませんでした。「詳細な除外設定」の「コンポーネントの除外設定」を確認するまで、エクスポート時にすべてのパラメーターがブロックされます。"
     },
     {
       "key": "unity.preview.refresh_components",

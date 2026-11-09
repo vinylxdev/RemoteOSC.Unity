@@ -55,10 +55,6 @@
       "value": "Avatar configurations"
     },
     {
-      "key": "avatar.controls",
-      "value": "Avatar controls"
-    },
-    {
       "key": "menu.avatar.title",
       "value": "Avatar menu"
     },
@@ -153,10 +149,6 @@
     {
       "key": "connection.connected",
       "value": "Connected"
-    },
-    {
-      "key": "coordinator.connecting",
-      "value": "Connecting to coordinator…"
     },
     {
       "key": "connection.muted_hint",
@@ -363,10 +355,6 @@
       "value": "Language"
     },
     {
-      "key": "settings.language.restart_hint",
-      "value": "Language changes apply after restarting RemoteOSC."
-    },
-    {
       "key": "direction.left",
       "value": "Left"
     },
@@ -423,10 +411,6 @@
       "value": "Muted by peer"
     },
     {
-      "key": "parameters.my_parameters",
-      "value": "My parameters"
-    },
-    {
       "key": "common.next",
       "value": "Next"
     },
@@ -453,10 +437,6 @@
     {
       "key": "avatar.not_shared",
       "value": "No avatar shared"
-    },
-    {
-      "key": "parameters.local.empty_legacy",
-      "value": "No controllable parameters shared. Enable OSC, load your avatar and check My parameters."
     },
     {
       "key": "parameters.peer.empty",
@@ -639,10 +619,6 @@
       "value": "Send port changes apply after restarting RemoteOSC."
     },
     {
-      "key": "control.send_to_vrchat",
-      "value": "Send to VRChat"
-    },
-    {
       "key": "control.value.set",
       "value": "Set value"
     },
@@ -673,10 +649,6 @@
     {
       "key": "connection.code.show",
       "value": "Show peer code"
-    },
-    {
-      "key": "unity.preview.source_legacy",
-      "value": "Source preview. Final parameter names and menus are exported after the avatar build tools run."
     },
     {
       "key": "menu.kind.submenu",
@@ -783,10 +755,6 @@
       "value": "Unknown peer action."
     },
     {
-      "key": "connection.unmute",
-      "value": "Unmute"
-    },
-    {
       "key": "parameter.osc_type.unsupported",
       "value": "Unsupported OSC parameter type '{0}'."
     },
@@ -823,10 +791,6 @@
       "value": "VRChat OSC cache folder"
     },
     {
-      "key": "settings.osc.discovery_hint",
-      "value": "VRChat discovers RemoteOSC through OSCQuery. The receive port is assigned automatically."
-    },
-    {
       "key": "oscquery.waiting_for_vrchat",
       "value": "Waiting for VRChat. Enable OSC in VRChat and wear an avatar."
     },
@@ -849,14 +813,6 @@
     {
       "key": "connection.code.label",
       "value": "Your code"
-    },
-    {
-      "key": "connection.your_connections",
-      "value": "Your connections"
-    },
-    {
-      "key": "control.your_shared",
-      "value": "Your shared controls"
     },
     {
       "key": "unity.menu.group_count",
@@ -885,10 +841,6 @@
     {
       "key": "connection.request.received",
       "value": "{0} wants to connect with you."
-    },
-    {
-      "key": "control.peer.title",
-      "value": "{0}'s controls"
     },
     {
       "key": "menu.expressions.back",
