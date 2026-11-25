@@ -299,7 +299,8 @@ namespace RemoteOSC.Unity.Editor
         private void DrawHeader(VRCAvatarDescriptor descriptor)
         {
             EditorGUILayout.Space(4);
-            EditorGUILayout.LabelField("RemoteOSC", titleStyle, GUILayout.Height(28));
+            EditorGUILayout.LabelField("RemoteOSC", titleStyle, GUILayout.Height(22));
+            EditorGUILayout.LabelField("By Vinyl", EditorStyles.miniLabel);
             GUILayout.Label(EditorText.Get("unity.permissions.description"), EditorStyles.wordWrappedLabel);
             EditorGUILayout.Space(8);
             using (new EditorGUILayout.VerticalScope(cardStyle))
